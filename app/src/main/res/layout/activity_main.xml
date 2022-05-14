@@ -46,12 +46,12 @@
             android:id="@+id/textView2"
             android:layout_width="70dp"
             android:layout_height="30dp"
-            android:layout_below="@+id/food_view"
+            android:layout_below="@+id/substance_view"
             android:layout_marginStart="125dp"
             android:layout_marginTop="1dp"
             android:layout_toEndOf="@+id/textView1"
             android:gravity="center"
-            android:text="@string/饮料"
+            android:text="@string/物资"
             android:textColor="@color/black"
             android:textSize="13sp" />
 
@@ -74,7 +74,7 @@
             android:id="@+id/drug_view"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_below="@+id/food_view"
+            android:layout_below="@+id/substance_view"
             android:layout_marginStart="60dp"
             android:layout_marginTop="44dp"
             android:layout_toEndOf="@+id/cosmetics_view"
@@ -90,18 +90,18 @@
             android:layout_marginStart="49dp"
             android:layout_marginTop="170dp"
             android:contentDescription="@string/食物"
-            app:srcCompat="@drawable/drink" />
+            app:srcCompat="@drawable/food" />
 
         <ImageView
-            android:id="@+id/food_view"
+            android:id="@+id/substance_view"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_alignParentTop="true"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="166dp"
+            android:layout_marginTop="170dp"
             android:layout_toEndOf="@+id/drink_view"
             android:contentDescription="@string/药品"
-            app:srcCompat="@drawable/food" />
+            app:srcCompat="@drawable/substance" />
 
         <TextView
             android:id="@+id/textView1"
@@ -120,7 +120,7 @@
             android:id="@+id/cosmetics_view"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_below="@+id/food_view"
+            android:layout_below="@+id/substance_view"
             android:layout_alignParentStart="true"
             android:layout_marginStart="49dp"
             android:layout_marginTop="56dp"
