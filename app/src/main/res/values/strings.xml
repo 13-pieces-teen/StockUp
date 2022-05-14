@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">StockUp</string>
+    <string name="药品">药品</string>
+    <string name="化妆品">化妆品</string>
+    <string name="饮料">饮料</string>
+    <string name="食物">食物</string>
 </resources>
