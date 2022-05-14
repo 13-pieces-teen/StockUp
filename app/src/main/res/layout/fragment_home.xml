@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="538dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.036">
+
+        <TextView
+            android:id="@+id/tv_drug"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/cosmetics_view"
+            android:layout_marginStart="115dp"
+            android:layout_marginTop="-3dp"
+            android:layout_toEndOf="@+id/tv_makeup"
+            android:gravity="center"
+            android:text="@string/药品"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_makeup"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/cosmetics_view"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="1dp"
+            android:gravity="center"
+            android:text="@string/化妆品"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_objects"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/supplies_view"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="1dp"
+            android:layout_toEndOf="@+id/tv_food"
+            android:gravity="center"
+            android:text="@string/物资"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/Data_view"
+            android:layout_width="296dp"
+            android:layout_height="49dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="57dp"
+            android:layout_marginTop="57dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginBottom="410dp"
+            android:gravity="center"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/drug_view"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_below="@+id/supplies_view"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="44dp"
+            android:layout_toEndOf="@+id/cosmetics_view"
+            android:contentDescription="@string/药品"
+            app:srcCompat="@drawable/drug" />
+
+        <ImageView
+            android:id="@+id/food_view"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="49dp"
+            android:layout_marginTop="170dp"
+            android:contentDescription="@string/食物"
+            app:srcCompat="@drawable/food" />
+
+        <ImageView
+            android:id="@+id/supplies_view"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="170dp"
+            android:layout_toEndOf="@+id/food_view"
+            android:contentDescription="@string/药品"
+            app:srcCompat="@drawable/substance" />
+
+        <TextView
+            android:id="@+id/tv_food"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/food_view"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="1dp"
+            android:gravity="center"
+            android:text="@string/食物"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/cosmetics_view"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_below="@+id/supplies_view"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="49dp"
+            android:layout_marginTop="56dp"
+            android:contentDescription="@string/化妆品"
+            app:srcCompat="@drawable/cosmetics" />
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
