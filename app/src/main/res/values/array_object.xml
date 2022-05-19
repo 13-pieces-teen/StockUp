@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="objectArray">
+        <item>食品</item>
+        <item>药物</item>
+        <item>化妆品</item>
+        <item>物资</item>
+    </string-array>
+</resources>

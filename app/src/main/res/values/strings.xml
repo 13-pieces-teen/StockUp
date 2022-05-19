@@ -10,4 +10,8 @@
     <string name="home">home</string>
     <string name="settings">settings</string>
     <string name="calendar">calendar</string>
+    <string name="添加">添加</string>
+    <string name="保质期">保质期</string>
+    <string name="生产日期">生产日期</string>
+    <string name="过期日期">过期日期</string>
 </resources>
