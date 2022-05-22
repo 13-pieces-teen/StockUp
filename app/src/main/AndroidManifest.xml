@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.stockup">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -11,9 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StockUp">
-        <activity
-            android:name=".add_stock"
-            android:exported="false" />
+
+        <activity android:name=".add_stock"
+            android:label="增加物品">
+
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -34,6 +36,7 @@
                 android:resource="@xml/files" />
             </provider>
     </application>
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
