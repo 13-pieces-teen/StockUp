@@ -104,7 +104,8 @@
                     android:layout_width="113dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="30dp"></ImageView>
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/choosephoto_background"></ImageView>
 
             </RelativeLayout>
 
@@ -134,37 +135,53 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="3dp"
                     android:background="@drawable/edit_text_bg"
-                    android:hint="请输入数字"></EditText>
+                    android:hint="请输入数字"
+                    android:inputType="number"
+                    ></EditText>
 
             </LinearLayout>
 
             <RadioGroup
+                android:id="@+id/rg_date"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-                <Button
-                    android:id="@+id/btn_day"
-                    android:layout_width="53dp"
-                    android:layout_height="58dp"
-                    android:layout_marginTop="30dp"
-                    android:text="天"
-                    android:textSize="20dp"></Button>
 
-                <Button
-                    android:id="@+id/btn_month"
-                    android:layout_width="53dp"
-                    android:layout_height="58dp"
+                <RadioButton
+                    android:id="@+id/rb_day"
+                    android:layout_width="45dp"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/radiobutton_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="天"
+                    android:textSize="20dp"></RadioButton>
+
+                <RadioButton
+                    android:id="@+id/rb_month"
+                    android:layout_width="45dp"
+                    android:layout_height="54dp"
                     android:layout_marginTop="30dp"
                     android:text="月"
-                    android:textSize="20dp"></Button>
+                    android:background="@drawable/radiobutton_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:textSize="20dp"></RadioButton>
 
-                <Button
-                    android:id="@+id/btn_year"
-                    android:layout_width="53dp"
-                    android:layout_height="58dp"
+                <RadioButton
+                    android:id="@+id/rb_year"
+                    android:layout_width="45dp"
+                    android:layout_height="54dp"
                     android:layout_marginTop="30dp"
                     android:text="年"
-                    android:textSize="20dp"></Button>
+                    android:button="@null"
+                    android:gravity="center"
+                    android:background="@drawable/radiobutton_background"
+                    android:textSize="20dp"></RadioButton>
 
             </RadioGroup>
         </LinearLayout>
@@ -190,7 +207,6 @@
                 android:layout_marginTop="10dp"
                 android:focusable="false"
                 android:hint="点击选择日期"
-                android:inputType="date"
                 android:background="@drawable/edit_text_bg"
                 android:paddingLeft="20dip"
                 android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
@@ -303,12 +319,15 @@
                 android:textSize="11sp"
                 ></Button>
 
+
         </LinearLayout>
 
 
             </LinearLayout>
         </ScrollView>
 
+
+<!--        底部固定-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
