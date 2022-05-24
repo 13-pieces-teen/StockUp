@@ -38,7 +38,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class add_stock extends AppCompatActivity {
 
@@ -69,8 +71,12 @@ public class add_stock extends AppCompatActivity {
     private Uri imageUri;
 
     private String date;
-    private int guaranteeDay;//保质天数
+    private int dayFlag;//默认选天
+    private int guaranteeNumber;//保质天数
     private int amount;//物品数量
+    private int nowDay;
+    private int nowMonth;
+    private int nowYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +89,24 @@ public class add_stock extends AppCompatActivity {
         DateGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
-                String result = radioButton.getText().toString();
+            // 选中状态改变时被触发
+                switch (checkedId) {
+                    case R.id.rb_day:
+                        // 当用户选择“天”时
+                        Log.i("DAY", "当前用户选择"+rb_day.getText().toString());
+                        dayFlag = 0;
+                        break;
+                    case R.id.rb_month:
+                        // 当用户选择“月”时
+                        Log.i("MONTH", "当前用户选择"+rb_month.getText().toString());
+                        dayFlag = 1;
+                        break;
+                    case R.id.rb_year:
+                        // 当用户选择“年”时
+                        Log.i("YEAR", "当前用户选择"+rb_year.getText().toString());
+                        dayFlag = 2;
+                        break;
+                }
             }
         });
 
@@ -153,9 +175,33 @@ public class add_stock extends AppCompatActivity {
                                 date = String.format("%d-%d-%d", year, month + 1, dayOfMonth);
                                 String text = "你选择了：" + year + "年" + (month + 1) + "月" + dayOfMonth + "日";
                                 Toast.makeText(add_stock.this, text, Toast.LENGTH_SHORT).show();
+                                //把生产日期获取出来
+                                nowDay = dayOfMonth;
+                                nowMonth = month;
+                                nowYear = year;
                                 et_produce_date.setText(date);
-
-
+                                //保质天数的获取
+                                guaranteeNumber = Integer.parseInt(et_guarantee_date.getText().toString());
+                                //获取生产日期
+                                Calendar nowDate = Calendar.getInstance();
+                                nowDate.set(nowYear,nowMonth,nowDay);
+                                Calendar nextDate = nowDate;
+                                //当前时间 加guaranteeNumber + radiogroup的选择（年/月/日）
+                                if (dayFlag == 0)
+                                {
+                                    nextDate.add(Calendar.DAY_OF_MONTH, guaranteeNumber);
+                                }else if (dayFlag == 1)
+                                {
+                                    nextDate.add(Calendar.MONTH, guaranteeNumber);
+                                }else if (dayFlag == 2)
+                                {
+                                    nextDate.add(Calendar.YEAR, guaranteeNumber);
+                                }
+                                int nextYear = nextDate.get(Calendar.YEAR);
+                                int nextMonth = nextDate.get(Calendar.MONTH);
+                                int nextDay = nextDate.get(Calendar.DAY_OF_MONTH);
+                                String date2 = String.format("%d-%d-%d", nextYear, nextMonth + 1, nextDay);
+                                et_after_date.setText(date2);
                             }
                         },
                         calendar.get(Calendar.YEAR),
@@ -166,6 +212,8 @@ public class add_stock extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+
 
         //过期日期的监听事件
         et_after_date.setOnClickListener(new View.OnClickListener() {
@@ -217,6 +265,7 @@ public class add_stock extends AppCompatActivity {
             }
         });
 
+
     }
 
     //图像保存在页面上
@@ -240,12 +289,34 @@ public class add_stock extends AppCompatActivity {
         }
     }
 
-
-    public void calculateDate()
-    {
+    //自动计算过期日期
+    public void calculateDate() {
         //保质天数的获取
-        guaranteeDay = Integer.parseInt(et_guarantee_date.getText().toString());
+        guaranteeNumber = Integer.parseInt(et_guarantee_date.getText().toString());
+        //获取生产日期
+        Calendar nowDate = Calendar.getInstance();
+        nowDate.set(nowYear,nowMonth,nowDay);
+        Calendar nextDate = nowDate;
 
+        //当前时间 加guaranteeNumber + radiogroup的选择（年/月/日）
+        if (dayFlag == 0)
+        {
+            nextDate.add(Calendar.DAY_OF_MONTH, guaranteeNumber);
+        }else if (dayFlag == 1)
+        {
+            nextDate.add(Calendar.MONTH, guaranteeNumber);
+        }else if (dayFlag == 2)
+        {
+            nextDate.add(Calendar.YEAR, guaranteeNumber);
+        }
+
+        //new SimgpleDateFormat 进行格式化
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        //利用Calendar的getTime方法，将时间转化为Date对象
+        Date date = (Date) nextDate.getTime();
+        //利用SimpleDateFormat对象 把Date对象格式化
+        String format = sdf.format(date);
+        et_after_date.setText(format);
 
     }
 
