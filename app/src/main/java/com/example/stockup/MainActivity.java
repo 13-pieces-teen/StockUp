@@ -4,14 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 
 import com.example.stockup.fragment.CalFragment;
 import com.example.stockup.fragment.HomeFragment;
 import com.example.stockup.fragment.SetFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private CalFragment calFragment;
     private SetFragment setFragment;
     private HomeFragment homeFragment;
+    private FloatingActionButton fab_add;
     List<Fragment> fragmentList;
 
 
@@ -39,9 +44,17 @@ public class MainActivity extends AppCompatActivity {
         intView();
         vp=findViewById(R.id.vpager);
         bottomnv= findViewById(R.id.bnv);
+        fab_add= findViewById(R.id.fab);
         adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         vp.setAdapter(adapter);
-
+        fab_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, add_stock.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
+                startActivity(intent);
+            }
+        });
         //底部导航栏监听
         bottomnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
