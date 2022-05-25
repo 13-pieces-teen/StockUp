@@ -14,6 +14,8 @@ import android.view.View;
 import com.example.stockup.fragment.CalFragment;
 import com.example.stockup.fragment.HomeFragment;
 import com.example.stockup.fragment.SetFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
