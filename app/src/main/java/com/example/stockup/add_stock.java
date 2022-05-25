@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -28,11 +29,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -41,6 +42,9 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import ObjectDBHelper.ObjectDBHelper;
+
 
 public class add_stock extends AppCompatActivity {
 
@@ -57,26 +61,38 @@ public class add_stock extends AppCompatActivity {
     private RadioButton rb_year;
     private RadioButton rb_month;
     private RadioButton rb_day;
+    private AddAndDecreaseButton btn_amount;//自定义的增减物品数量按钮
 
     private TextView tv_open_date;
     private TextView tv_remarks;//物品备注
-
-    private Spinner sp_object;//物品选择下拉框
-    private ImageButton btn_object_image;//物品图像
+    private TextView tv_percent;//进度条百分比
+    private TextView tv_days;//距离到期(N)天
     private ImageView iv_object_image;
+    private Spinner sp_object;//物品选择下拉框
+    private SeekBar sb_remind;//seekbar日期进度条
+
     private Button btn_QR;//扫一扫
     private Button btn_else;//其他选项
     private Button btn_save;//保存按钮
     private Button btn_return;//返回按钮（返回一级菜单）
+    private Button btn_clear;//重置按钮
     private Uri imageUri;
 
+    private String objectType;//物品种类
     private String date;
+    private String dateType;//年，月，日
+
     private int dayFlag;//默认选天
     private int guaranteeNumber;//保质天数
-    private int amount;//物品数量
-    private int nowDay;
-    private int nowMonth;
-    private int nowYear;
+    private int objectAmount;//物品数量
+    private int nowDay;//生产日期（天）
+    private int nowMonth;//生产日期（月）
+    private int nowYear;//生产日期（年）
+    private int nextDay;//过期日期（天）
+    private int nextMonth;//过期日期（月）
+    private int nextYear;//过期日期（年）
+    private int betweenDays;//间隔天数
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +100,47 @@ public class add_stock extends AppCompatActivity {
         setContentView(R.layout.activity_add_stock);
 
         initView();//初始化
+
+        //Seekbar监听事件
+        sb_remind.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //将seekBar的进度设置在textView上
+                String ww = String.format("(%d%%)", progress);
+                tv_percent.setText(ww);
+
+                betweenDay();
+                //计算离到期还有几天
+                int calDays = betweenDays * progress / 100;
+                String ss = String.format("%d天",calDays);
+                tv_days.setText(ss);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //spanner（物品种类的监听事件）
+        sp_object.setSelection(0);//初始化，默认选择列表中第0个元素
+        sp_object.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //这个方法里可以对点击事件进行处理
+                //i指的是点击的位置,通过i可以取到相应的数据源
+                objectType=adapterView.getItemAtPosition(i).toString();//获取i所在的文本
+                Toast.makeText(add_stock.this,objectType,Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
         //保质天数单选按钮组的监听事件
         DateGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -95,16 +152,19 @@ public class add_stock extends AppCompatActivity {
                         // 当用户选择“天”时
                         Log.i("DAY", "当前用户选择"+rb_day.getText().toString());
                         dayFlag = 0;
+                        dateType = "天";
                         break;
                     case R.id.rb_month:
                         // 当用户选择“月”时
                         Log.i("MONTH", "当前用户选择"+rb_month.getText().toString());
                         dayFlag = 1;
+                        dateType = "月";
                         break;
                     case R.id.rb_year:
                         // 当用户选择“年”时
                         Log.i("YEAR", "当前用户选择"+rb_year.getText().toString());
                         dayFlag = 2;
+                        dateType = "年";
                         break;
                 }
             }
@@ -197,9 +257,9 @@ public class add_stock extends AppCompatActivity {
                                 {
                                     nextDate.add(Calendar.YEAR, guaranteeNumber);
                                 }
-                                int nextYear = nextDate.get(Calendar.YEAR);
-                                int nextMonth = nextDate.get(Calendar.MONTH);
-                                int nextDay = nextDate.get(Calendar.DAY_OF_MONTH);
+                                nextYear = nextDate.get(Calendar.YEAR);
+                                nextMonth = nextDate.get(Calendar.MONTH);
+                                nextDay = nextDate.get(Calendar.DAY_OF_MONTH);
                                 String date2 = String.format("%d-%d-%d", nextYear, nextMonth + 1, nextDay);
                                 et_after_date.setText(date2);
                             }
@@ -212,8 +272,6 @@ public class add_stock extends AppCompatActivity {
                 dialog.show();
             }
         });
-
-
 
         //过期日期的监听事件
         et_after_date.setOnClickListener(new View.OnClickListener() {
@@ -265,8 +323,60 @@ public class add_stock extends AppCompatActivity {
             }
         });
 
+        //重置按钮的监听事件
+        btn_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                et_object_name.setText("");
+                et_open_date.setText("");
+                et_produce_date.setText("");
+                et_remarks.setText("");
+                et_guarantee_date.setText("");
+                et_after_date.setText("");
+                rb_day.setChecked(false);
+                rb_month.setChecked(false);
+                rb_year.setChecked(false);
+            }
+        });
 
+        //保存按钮的监听事件
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                objectInfo object = getObjectFromUI();
+
+//                // 插入数据库中
+//                long rowId = ObjectDBHelper.insertData(object);
+//                if (rowId != -1) {
+//                    Toast.makeText(add_stock.this,"添加成功！",Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(add_stock.this,"添加失败！",Toast.LENGTH_SHORT).show();
+//                }
+            }
+        });
     }
+
+    //收集界面输入的数据，并将封装成objectInfo对象
+    private objectInfo getObjectFromUI()
+    {
+        //物品名称，物品类别，保质天数，生产日期，过期日期，开封日期，备注，产品数量，间隔天数
+        String objectName = et_object_name.getText().toString().trim();
+        //物品类别在全局变量里（objectType）
+        //物品保质天数 （xx天/月/年）
+        String objectGuarantee = String.format("%d%s",guaranteeNumber,dateType);
+        String objectProduceDate = et_produce_date.getText().toString().trim();
+        String objectAfterDate = et_after_date.getText().toString().trim();
+        String objectOpenDate = et_open_date.getText().toString().trim();
+        //间隔天数在全局变量（betweenDays）
+        objectAmount = btn_amount.getAmount();
+        String objectRemark = et_remarks.getText().toString().trim();
+
+        objectInfo object = new objectInfo(objectName, objectType, objectGuarantee, objectProduceDate,
+                objectAfterDate, objectOpenDate, objectRemark, objectAmount, betweenDays);
+
+        return object;
+    }
+
 
     //图像保存在页面上
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -289,7 +399,7 @@ public class add_stock extends AppCompatActivity {
         }
     }
 
-    //自动计算过期日期
+    //自动计算过期日期(废案，会闪退)
     public void calculateDate() {
         //保质天数的获取
         guaranteeNumber = Integer.parseInt(et_guarantee_date.getText().toString());
@@ -320,6 +430,19 @@ public class add_stock extends AppCompatActivity {
 
     }
 
+    //计算间隔天数
+    public int betweenDay()
+    {
+        Calendar a=Calendar.getInstance();
+        Calendar b=Calendar.getInstance();
+        a.set(nowYear,nowMonth,nowDay);
+        b.set(nextYear,nextMonth,nextDay);;
+        //计算此日期是一年中的哪一天
+        int day1=a.get(Calendar.DAY_OF_YEAR);
+        int day2=b.get(Calendar.DAY_OF_YEAR);
+        betweenDays = day2-day1;
+        return betweenDays;
+    }
 
     private void initView() {
         et_object_name =  findViewById(R.id.et_object_name);
@@ -330,19 +453,23 @@ public class add_stock extends AppCompatActivity {
         et_remarks = findViewById(R.id.et_remarks);
 
         DateGroup = findViewById(R.id.rg_date);
+        sb_remind = findViewById(R.id.sb_remind);
         rb_day = findViewById(R.id.rb_day);
         rb_month = findViewById(R.id.rb_month);
         rb_year = findViewById(R.id.rb_year);
 
+        btn_amount = findViewById(R.id.btn_amount);
         sp_object = findViewById(R.id.sp_object);
         tv_open_date = findViewById(R.id.tv_open_date);
         tv_remarks = findViewById(R.id.tv_remarks);
+        tv_percent = findViewById(R.id.tv_percent);
+        tv_days = findViewById(R.id.tv_days);
         iv_object_image =  findViewById(R.id.iv_object_image);
         btn_QR =  findViewById(R.id.btn_QR);
         btn_else =  findViewById(R.id.btn_else);
         btn_save =  findViewById(R.id.btn_save);
         btn_return = findViewById(R.id.btn_return);
-
+        btn_clear = findViewById(R.id.btn_clear);
     }
 
 //    //验证用户是否按要求输入了数据
@@ -369,7 +496,6 @@ public class add_stock extends AppCompatActivity {
 //            return false;
 //        }         return true;
 //    }
-
 
 
 
