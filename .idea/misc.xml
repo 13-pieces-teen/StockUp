@@ -15,7 +15,17 @@
         <entry key="..\:/Android/StockUp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1095" />
         <entry key="..\:/Android/StockUp/app/src/main/res/mipmap-anydpi-v26/ic_set_round.xml" value="0.1235" />
         <entry key="..\:/Android/StockUp/app/src/main/res/xml/bottombar_sample_activity.xml" value="0.264" />
+        <entry key="..\:/Android/StockUp/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/StockUp/app/src/main/res/drawable/button.xml" value="0.184" />
+        <entry key="..\:/StockUp/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.245" />
+        <entry key="..\:/StockUp/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.245" />
+        <entry key="..\:/StockUp/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.245" />
+        <entry key="..\:/StockUp/app/src/main/res/drawable/ic_baseline_expand_more_24.xml" value="0.245" />
+        <entry key="..\:/StockUp/app/src/main/res/drawable/radiobutton_background.xml" value="0.203" />
+        <entry key="..\:/StockUp/app/src/main/res/drawable/radiobutton_background_checked.xml" value="0.203" />
+        <entry key="..\:/StockUp/app/src/main/res/drawable/radiobutton_background_unchecked.xml" value="0.203" />
+        <entry key="..\:/StockUp/app/src/main/res/layout/activity_add_and_decrease.xml" value="0.3765625" />
+        <entry key="..\:/StockUp/app/src/main/res/layout/activity_add_stock.xml" value="0.33" />
         <entry key="..\:/StockUp/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.245" />
         <entry key="..\:/StockUp/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.245" />
         <entry key="..\:/StockUp/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.245" />
