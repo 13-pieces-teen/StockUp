@@ -18,4 +18,7 @@
     <color name="green_200">#C5E1A5</color>
     <color name="green_500">#8BC34A</color>
     <color name="green_700">#689F38</color>
+    <color name="bule">#B90497FD</color>
+    <color name="orange">#FF9900</color>
+    <color name="colorGray">#969696</color>
 </resources>
