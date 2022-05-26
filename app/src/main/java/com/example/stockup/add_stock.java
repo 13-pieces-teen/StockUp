@@ -37,7 +37,9 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -338,7 +340,6 @@ public class add_stock extends AppCompatActivity {
                 rb_year.setChecked(false);
             }
         });
-
         //保存按钮的监听事件
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -354,6 +355,20 @@ public class add_stock extends AppCompatActivity {
 //                }
             }
         });
+        //扫描条形码
+        btn_QR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentIntegrator integrator = new IntentIntegrator(add_stock.this);
+               // integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+                integrator.setPrompt("扫描条形码");
+                integrator.setCameraId(0);
+                integrator.setBeepEnabled(true);
+                integrator.initiateScan();
+            }
+        });
+
     }
 
     //收集界面输入的数据，并将封装成objectInfo对象
@@ -378,6 +393,7 @@ public class add_stock extends AppCompatActivity {
     }
 
 
+
     //图像保存在页面上
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -396,6 +412,15 @@ public class add_stock extends AppCompatActivity {
                 break;
             default:
                 break;
+        }
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                //扫码失败
+            } else {
+                String result = intentResult.getContents();//返回值
+                Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -444,6 +469,7 @@ public class add_stock extends AppCompatActivity {
         return betweenDays;
     }
 
+
     private void initView() {
         et_object_name =  findViewById(R.id.et_object_name);
         et_guarantee_date =  findViewById(R.id.et_guarantee_date);
@@ -471,6 +497,9 @@ public class add_stock extends AppCompatActivity {
         btn_return = findViewById(R.id.btn_return);
         btn_clear = findViewById(R.id.btn_clear);
     }
+
+
+
 
 //    //验证用户是否按要求输入了数据
 //    private boolean checkUserInput() { // 物品名称，保质期天数,生产日期

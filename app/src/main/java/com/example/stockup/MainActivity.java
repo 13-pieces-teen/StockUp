@@ -11,11 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-import com.example.stockup.fragment.CalFragment;
-import com.example.stockup.fragment.HomeFragment;
-import com.example.stockup.fragment.SetFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.example.stockup.fragment_menu.CalFragment;
+import com.example.stockup.fragment_menu.HomeFragment;
+import com.example.stockup.fragment_menu.SetFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,22 +31,16 @@ public class MainActivity extends AppCompatActivity {
     List<Fragment> fragmentList;
 
 
-
-    private BottomNavigationView bnv;
-    public List<Fragment> getFragmentList() {
-        return fragmentList;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fragmentList = new ArrayList<>();
         intView();
-        vp=findViewById(R.id.vpager);
-        bottomnv= findViewById(R.id.bnv);
-        fab_add= findViewById(R.id.fab);
+        intData();
         adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         vp.setAdapter(adapter);
+
+        //添加按钮绑定
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         //底部导航栏监听
         bottomnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -78,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         //滑动监听
         vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
 
@@ -100,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    //将底部导航栏绑定vp
     private void onPagerSelected(int position) {
         switch (position){
             case 0:
@@ -116,7 +112,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+
+
+    //添加fragment到list中
     private void intView() {
+        fragmentList = new ArrayList<>();
         homeFragment = new HomeFragment();
         setFragment = new SetFragment();
         calFragment=new CalFragment();
@@ -124,6 +126,13 @@ public class MainActivity extends AppCompatActivity {
         fragmentList.add(calFragment);
         fragmentList.add(setFragment);
     }
+    //绑定实例按键
+    private void intData() {
+        vp=findViewById(R.id.vpager);
+        bottomnv= findViewById(R.id.bnv);
+        fab_add= findViewById(R.id.fab);
+    }
+
 
 
 
