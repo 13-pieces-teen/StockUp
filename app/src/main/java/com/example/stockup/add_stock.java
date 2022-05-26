@@ -394,7 +394,7 @@ public class add_stock extends AppCompatActivity {
 
 
 
-    //图像保存在页面上
+    //图像保存在页面上和返回json码
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -416,7 +416,7 @@ public class add_stock extends AppCompatActivity {
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (intentResult != null) {
             if (intentResult.getContents() == null) {
-                //扫码失败
+                Toast.makeText(this, "扫码失败", Toast.LENGTH_SHORT).show();
             } else {
                 String result = intentResult.getContents();//返回值
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
