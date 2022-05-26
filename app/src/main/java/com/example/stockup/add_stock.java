@@ -13,6 +13,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -34,6 +35,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -92,6 +95,7 @@ public class add_stock extends AppCompatActivity {
     private int nextMonth;//过期日期（月）
     private int nextYear;//过期日期（年）
     private int betweenDays;//间隔天数
+    private ObjectDBHelper objectDBHelper;
 
 
     @Override
@@ -100,6 +104,7 @@ public class add_stock extends AppCompatActivity {
         setContentView(R.layout.activity_add_stock);
 
         initView();//初始化
+        objectDBHelper = new ObjectDBHelper(this);//很重要，之前忘了实例化，空指针
 
         //Seekbar监听事件
         sb_remind.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -166,6 +171,7 @@ public class add_stock extends AppCompatActivity {
                         dayFlag = 2;
                         dateType = "年";
                         break;
+                    default:dayFlag = -1;
                 }
             }
         });
@@ -343,15 +349,18 @@ public class add_stock extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                objectInfo object = getObjectFromUI();
+                if (!checkUIInput()) {// 界面输入验证
+                    return;
+                }
+                objectInfo object1 = getObjectFromUI();
+                // 插入数据库中
+              long rowId = objectDBHelper.addObject(object1);
+                if (rowId != -1) {
+                    Toast.makeText(add_stock.this, "添加成功！！！", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(add_stock.this, "添加失败！！！", Toast.LENGTH_SHORT).show();
+                }
 
-//                // 插入数据库中
-//                long rowId = ObjectDBHelper.insertData(object);
-//                if (rowId != -1) {
-//                    Toast.makeText(add_stock.this,"添加成功！",Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(add_stock.this,"添加失败！",Toast.LENGTH_SHORT).show();
-//                }
             }
         });
     }
@@ -360,7 +369,7 @@ public class add_stock extends AppCompatActivity {
     private objectInfo getObjectFromUI()
     {
         //物品名称，物品类别，保质天数，生产日期，过期日期，开封日期，备注，产品数量，间隔天数
-        String objectName = et_object_name.getText().toString().trim();
+        String objectName = et_object_name.getText().toString();
         //物品类别在全局变量里（objectType）
         //物品保质天数 （xx天/月/年）
         String objectGuarantee = String.format("%d%s",guaranteeNumber,dateType);
@@ -373,8 +382,8 @@ public class add_stock extends AppCompatActivity {
 
         objectInfo object = new objectInfo(objectName, objectType, objectGuarantee, objectProduceDate,
                 objectAfterDate, objectOpenDate, objectRemark, objectAmount, betweenDays);
-
         return object;
+
     }
 
 
@@ -472,30 +481,36 @@ public class add_stock extends AppCompatActivity {
         btn_clear = findViewById(R.id.btn_clear);
     }
 
-//    //验证用户是否按要求输入了数据
-//    private boolean checkUserInput() { // 物品名称，保质期天数,生产日期
-//        String ObjectName = et_object_name.getText().toString();
-//        String guaranteeDay = et_guarantee_date.getText().toString();
-//        Date ProduceDate = (Date) et_produce_date.getText();
-//
-//        String message = null;
-//        View invadView = null;
-//        if (name.trim().length() == 0) {
-//            message = "请输入姓名！";
-//            invadView = nameText;
-//        } else if (age.trim().length() == 0) {
-//            message = "请输入年龄！";
-//            invadView = ageText;
-//        } else if (id == -1) {
-//            message = "请选择性别！";
-//        }
-//        if (message != null) {
-//            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-//            if (invadView != null)
-//                invadView.requestFocus();
-//            return false;
-//        }         return true;
-//    }
+
+    //验证用户是否按要求输入了数据,若不符合不得保存
+    private boolean checkUIInput() { // 物品名称，保质期天数,生产日期,保质旋钮
+        String objectName = et_object_name.getText().toString();
+        //物品类别在全局变量里（objectType）
+        String objectProduceDate = et_produce_date.getText().toString().trim();
+
+        String message = null;
+        View invadView = null;
+        if (objectName.trim().length() == 0) {
+            message = "请输入物品名称！";
+            invadView = et_object_name;
+        } else if (guaranteeNumber == 0) {
+            message = "请输入保质天数！";
+            invadView = et_guarantee_date;
+        } else if (dayFlag == -1) {
+            message = "未选择保质年/月/日！";
+        }else if (objectProduceDate.length() == 0)
+        {
+            message = "未填入生产日期！";
+            invadView = et_produce_date;
+        }
+
+        if (message != null) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            if (invadView != null)
+                invadView.requestFocus();
+            return false;
+        }         return true;
+    }
 
 
 
