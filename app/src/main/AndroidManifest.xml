@@ -13,7 +13,22 @@
 
         <activity android:name=".add_stock"
             android:label="增加物品">
+        </activity>
 
+        <activity android:name=".Stock_Activity.Food_Stock_Act"
+            android:label="食物">
+        </activity>
+
+        <activity android:name=".Stock_Activity.Drup_Stock_Act"
+            android:label="药品">
+        </activity>
+
+        <activity android:name=".Stock_Activity.Cosmetics_Stock_Act"
+            android:label="化妆品">
+        </activity>
+
+        <activity android:name=".Stock_Activity.Supplies_Stock_Act"
+            android:label="物资">
         </activity>
 
         <activity

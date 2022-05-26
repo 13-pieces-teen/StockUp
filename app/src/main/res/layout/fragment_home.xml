@@ -48,8 +48,8 @@
             android:layout_width="70dp"
             android:layout_height="30dp"
             android:layout_below="@+id/supplies_view"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="1dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="-4dp"
             android:layout_toEndOf="@+id/tv_food"
             android:gravity="center"
             android:text="@string/物资"
@@ -95,13 +95,13 @@
 
         <ImageView
             android:id="@+id/supplies_view"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="138dp"
+            android:layout_height="122dp"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="80dp"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="170dp"
             android:layout_toEndOf="@+id/food_view"
-            android:contentDescription="@string/药品"
+            android:contentDescription="@string/物资"
             app:srcCompat="@drawable/substance" />
 
         <TextView

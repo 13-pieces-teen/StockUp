@@ -1,4 +1,4 @@
-package com.example.stockup.fragment;
+package com.example.stockup.fragment_menu;
 
 import android.os.Bundle;
 

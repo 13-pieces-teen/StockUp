@@ -7,4 +7,14 @@
         <item name="android:layout_height">50dp</item>
     </style>
 
+        <style name="selectText">
+            <item name="android:textSize">20sp</item>
+            <item name="android:drawablePadding">20dp</item>
+        </style>
+
+        <style name="unSelectText">
+            <item name="android:textSize">15sp</item>
+            <item name="android:drawablePadding">4dp</item>
+        </style>
+
 </resources>
