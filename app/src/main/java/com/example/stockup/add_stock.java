@@ -41,6 +41,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -171,7 +174,6 @@ public class add_stock extends AppCompatActivity {
                         dayFlag = 2;
                         dateType = "年";
                         break;
-                    default:dayFlag = -1;
                 }
             }
         });
@@ -385,7 +387,22 @@ public class add_stock extends AppCompatActivity {
 
             }
         });
+        //扫描条形码
+        btn_QR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentIntegrator integrator = new IntentIntegrator(add_stock.this);
+                // integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+                integrator.setPrompt("扫描条形码");
+                integrator.setCameraId(0);
+                integrator.setBeepEnabled(true);
+                integrator.initiateScan();
+            }
+        });
+
     }
+
 
     //收集界面输入的数据，并将封装成objectInfo对象
     private objectInfo getObjectFromUI()
@@ -409,7 +426,7 @@ public class add_stock extends AppCompatActivity {
     }
 
 
-    //图像保存在页面上
+    //图像保存在页面上和返回json码
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -427,6 +444,15 @@ public class add_stock extends AppCompatActivity {
                 break;
             default:
                 break;
+        }
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                Toast.makeText(this, "扫码失败", Toast.LENGTH_SHORT).show();
+            } else {
+                String result = intentResult.getContents();//返回值
+                Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -474,6 +500,7 @@ public class add_stock extends AppCompatActivity {
         betweenDays = day2-day1;
         return betweenDays;
     }
+
 
     private void initView() {
         et_object_name =  findViewById(R.id.et_object_name);
