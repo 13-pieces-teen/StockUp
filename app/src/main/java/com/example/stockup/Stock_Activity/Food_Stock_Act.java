@@ -1,45 +1,38 @@
 package com.example.stockup.Stock_Activity;
 
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.example.stockup.Adapter.ListViewAdapter;
 import com.example.stockup.R;
-import com.example.stockup.fragment_menu.CalFragment;
-import com.example.stockup.fragment_menu.HomeFragment;
-import com.example.stockup.fragment_menu.SetFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.stockup.objectInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Food_Stock_Act extends AppCompatActivity{
-   /*
     private ListView listView;
+    //食物列表数组
+    private List<objectInfo> food_list = new ArrayList<objectInfo>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.com_activity_stock);
         listView = findViewById(R.id.listView);
-
-
+        //数据库查询并添加到数组
+        initlist();
         //给listView设置ArrayAdapter，绑定数据
-        listView.setAdapter(new ArrayAdapter<String>(this, R.layout.listview_items, s));
-
+        ListViewAdapter listadapter=new ListViewAdapter(Food_Stock_Act.this,R.layout.listview_items,food_list);
+        listView.setAdapter(listadapter);
+        //点击监听
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -47,6 +40,9 @@ public class Food_Stock_Act extends AppCompatActivity{
             }
         });
     }
-    */
+
+    private void initlist() {
+
+    }
 
 }
