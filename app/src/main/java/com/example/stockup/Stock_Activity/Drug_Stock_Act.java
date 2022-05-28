@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.stockup.R;
 
-public class Drup_Stock_Act extends AppCompatActivity {
+public class Drug_Stock_Act extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

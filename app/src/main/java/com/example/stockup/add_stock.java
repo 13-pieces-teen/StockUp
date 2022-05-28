@@ -354,7 +354,29 @@ public class add_stock extends AppCompatActivity {
                 }
                 objectInfo object1 = getObjectFromUI();
                 // 插入数据库中
-              long rowId = objectDBHelper.addObject(object1);
+                String objectType = object1.getOB_type();
+                long rowId;
+                switch (objectType){
+                    case "食品":
+                        rowId = objectDBHelper.addFood(object1);
+                        Log.i("数据库", "数据库加入食品");
+                        break;
+                    case "药品":
+                        rowId = objectDBHelper.addDurg(object1);
+                        Log.i("数据库", "数据库加入药品");
+                        break;
+                    case "化妆品":
+                        rowId = objectDBHelper.addCosmetics(object1);
+                        Log.i("数据库", "数据库加入化妆品");
+                        break;
+                    case "物资":
+                        rowId = objectDBHelper.addSupplies(object1);
+                        Log.i("数据库", "数据库加入物资");
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + objectType);
+                }
+
                 if (rowId != -1) {
                     Toast.makeText(add_stock.this, "添加成功！！！", Toast.LENGTH_SHORT).show();
                 } else {

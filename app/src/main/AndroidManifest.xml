@@ -19,7 +19,7 @@
             android:label="食物">
         </activity>
 
-        <activity android:name=".Stock_Activity.Drup_Stock_Act"
+        <activity android:name=".Stock_Activity.Drug_Stock_Act"
             android:label="药品">
         </activity>
 
