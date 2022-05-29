@@ -1,24 +1,18 @@
 package com.example.stockup;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
+
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.DialogInterface;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -26,28 +20,28 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
+import java.util.Date;
 
 import ObjectDBHelper.ObjectDBHelper;
 
@@ -55,7 +49,8 @@ import ObjectDBHelper.ObjectDBHelper;
 public class add_stock extends AppCompatActivity {
 
     public static final int TAKE_PHOTO = 1;
-    public static final int REQUEST_CODE_CHOOSE = 0;
+    public static final int CHOOSE_PHOTO=2;
+    String index = "";		//	作为拍照还是相册的标识
     private EditText et_object_name;//产品名称
     private EditText et_guarantee_date;//保质期
     private EditText et_after_date;//过期日期
@@ -83,6 +78,7 @@ public class add_stock extends AppCompatActivity {
     private Button btn_return;//返回按钮（返回一级菜单）
     private Button btn_clear;//重置按钮
     private Uri imageUri;
+    String UriInfo = "";		//	uri变成字符串
 
     private String objectType;//物品种类
     private String date;
@@ -107,7 +103,7 @@ public class add_stock extends AppCompatActivity {
         setContentView(R.layout.activity_add_stock);
 
         initView();//初始化
-        objectDBHelper = new ObjectDBHelper(this);//很重要，之前忘了实例化，空指针
+        objectDBHelper = new ObjectDBHelper(this);//很重要，之前忘了实例化，会导致空指针
 
         //Seekbar监听事件
         sb_remind.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -182,13 +178,19 @@ public class add_stock extends AppCompatActivity {
         iv_object_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //          获取本地时间，作为图片的名字，防止拍了多张照片时，出现图片覆盖导致之前图片消失的问题
+                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
+                Date curDate = new Date(System.currentTimeMillis());
+                String str = format.format(curDate);
+
                 // 创建File对象，用于存储拍照后的图片
                 // 将图片命名为output_image.jpg，并将它存放在手机SD卡的应用关联缓存目录下
                 // getExternalCacheDir()可以得到这个目录
-                File output = new File(getExternalCacheDir(), "output_image.jpg");
+                File output = new File(getExternalCacheDir(),str+".jpg");
                 try {
-                    if (output.exists()) {
-                        output.delete();
+                    if (output.exists()) {  //  检查与File对象相连接的文件和目录是否存在于磁盘中
+                        output.delete();    //  删除与File对象相连接的文件和目录
                     }
                     output.createNewFile();
                 } catch (IOException e) {
@@ -196,15 +198,29 @@ public class add_stock extends AppCompatActivity {
                 }
 
                 if (Build.VERSION.SDK_INT >= 24) {
-                    //图片的保存路径
-                    imageUri = FileProvider.getUriForFile(add_stock.this, "com.example.stockup.fileprovider", output);
+                    /**
+                     *          将File对象转换成一个封装过的Uri对象
+                     *          第一个参数：  要求传入Context参数
+                     *          第二个参数：  可以是任意唯一的字符串
+                     *          第三个参数：  我们刚刚创建的File对象
+                     */
+                    imageUri = FileProvider.getUriForFile(add_stock.this,
+                            "com.example.stockup.fileprovider", output);
                 } else {
+                    //  如果运行设备的系统版本低于 Android7.0
+                    //  将File对象转换成Uri对象，这个Uri对象表示着output_image.jpg 这张图片的本地真实路径
                     imageUri = Uri.fromFile(output);
                 }
-                //跳转界面到系统自带的拍照界面
+                /**
+                 *      启动相机程序
+                 */
+                //  将Intent的action指定为 拍照到指定目录 —— android.media.action.IMAGE_CAPTURE
                 Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                //  指定图片的输出地址
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                //  把背景图片撤掉
                 iv_object_image.setBackground(null);
+                //  在通过startActivityForResult()，来启动活动，因此拍完照后会有结果返回到 onActivityResult()方法中
                 startActivityForResult(intent, TAKE_PHOTO);
             }
         });
@@ -361,18 +377,22 @@ public class add_stock extends AppCompatActivity {
                 switch (objectType){
                     case "食品":
                         rowId = objectDBHelper.addFood(object1);
+                        addWhole(object1);
                         Log.i("数据库", "数据库加入食品");
                         break;
                     case "药品":
                         rowId = objectDBHelper.addDurg(object1);
+                        addWhole(object1);
                         Log.i("数据库", "数据库加入药品");
                         break;
                     case "化妆品":
                         rowId = objectDBHelper.addCosmetics(object1);
+                        addWhole(object1);
                         Log.i("数据库", "数据库加入化妆品");
                         break;
                     case "物资":
                         rowId = objectDBHelper.addSupplies(object1);
+                        addWhole(object1);
                         Log.i("数据库", "数据库加入物资");
                         break;
                     default:
@@ -387,6 +407,7 @@ public class add_stock extends AppCompatActivity {
 
             }
         });
+
         //扫描条形码
         btn_QR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -400,6 +421,7 @@ public class add_stock extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
+
 
     }
 
@@ -427,6 +449,7 @@ public class add_stock extends AppCompatActivity {
 
 
     //图像保存在页面上和返回json码
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -434,17 +457,33 @@ public class add_stock extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     // 使用try让程序运行在内报错
                     try {
-                        //将图片保存
+                        //  根据Uri找到这张照片的位置，将它解析成Bitmap对象，然后将把它设置到imageView中显示出来
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        UriInfo = ""+imageUri;
+                        index = "2";
                         iv_object_image.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                 }
                 break;
+            case CHOOSE_PHOTO:
+                /**
+                 *          之所以这样做是是因为，Android 系统从4.4版本开始，选取相册图片不再返回图片真实的Uri了，而是一个封装过的Uri，因此
+                 *          如果是4.4版本以上的手机就需要对这个Uri进行解析才行
+                 */
+                if (resultCode == RESULT_OK){
+                    if (Build.VERSION.SDK_INT  >= 19){      //  如果是在4.4及以 上 系统的手机就调用该方法来处理图片
+                        handleImageOnKitKat(data);
+                    }else{
+                        handleImageBeforeKitKat(data);      //  如果是在4.4以 下 系统的手机就调用该方法来处理图片
+                    }
+                }
+                break;
             default:
                 break;
         }
+
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (intentResult != null) {
             if (intentResult.getContents() == null) {
@@ -456,35 +495,111 @@ public class add_stock extends AppCompatActivity {
         }
     }
 
-    //自动计算过期日期(废案，会闪退)
-    public void calculateDate() {
-        //保质天数的获取
-        guaranteeNumber = Integer.parseInt(et_guarantee_date.getText().toString());
-        //获取生产日期
-        Calendar nowDate = Calendar.getInstance();
-        nowDate.set(nowYear,nowMonth,nowDay);
-        Calendar nextDate = nowDate;
 
-        //当前时间 加guaranteeNumber + radiogroup的选择（年/月/日）
-        if (dayFlag == 0)
-        {
-            nextDate.add(Calendar.DAY_OF_MONTH, guaranteeNumber);
-        }else if (dayFlag == 1)
-        {
-            nextDate.add(Calendar.MONTH, guaranteeNumber);
-        }else if (dayFlag == 2)
-        {
-            nextDate.add(Calendar.YEAR, guaranteeNumber);
+    /**
+     *          如何解析这个封装过的Uri
+     */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void handleImageOnKitKat(Intent data) {
+        String imagePath = null;
+        Uri uri = data.getData();
+        if (DocumentsContract.isDocumentUri(this,uri)){
+            //  如果返回的Uri是 document 类型的话，那就取出 document id 进行处理
+            String docId = DocumentsContract.getDocumentId(uri);
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())){
+                String id = docId.split(":")[1];        //  解析出数字格式id
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
+            }else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())){
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),Long.valueOf(docId));
+                imagePath = getImagePath(contentUri,null);
+            }
+        }else if ("content".equalsIgnoreCase(uri.getScheme())){
+            //  如果是 content 类型的Uri，则使用普通方式处理
+            imagePath = getImagePath(uri,null);
+        }else if ("file".equalsIgnoreCase(uri.getScheme())){
+            //  如果是 file 类型的 Uri ，直接获取图片路径即可
+            imagePath = uri.getPath();
         }
+        displayImage(imagePath);        //  拿到图片路径后，在调用 displayImage() 方法将图片显示到界面上
+    }
 
-        //new SimgpleDateFormat 进行格式化
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-        //利用Calendar的getTime方法，将时间转化为Date对象
-        Date date = (Date) nextDate.getTime();
-        //利用SimpleDateFormat对象 把Date对象格式化
-        String format = sdf.format(date);
-        et_after_date.setText(format);
 
+    private void handleImageBeforeKitKat(Intent data) {
+        Uri uri = data.getData();
+        String imagePath = getImagePath(uri,null);
+        displayImage(imagePath);
+    }
+
+
+    private void displayImage(String imagePath) {
+        if (imagePath != null){
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            index = "1";
+            UriInfo = imagePath;
+            iv_object_image.setImageBitmap(bitmap);
+        }else{
+            Toast.makeText(this,"failed to get image",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openAlbum() {
+        /**
+         *      启动相册程序
+         */
+        //  action —— android.intent.action.ACTION_PICK
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        //  该函数表示要查找文件的mime类型（如*/*），这个和组件在manifest里定义的相对应，但在源代码里
+        intent.setType("image/*");
+        startActivityForResult(intent,CHOOSE_PHOTO);    //打开相册,用自定义常量 —— CHOOSE_PHOTO来作为case处理图片的标识
+    }
+
+    private String getImagePath(Uri uri, String selection) {
+        String path = null;
+        Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
+        if(cursor != null){
+            if(cursor.moveToFirst()){
+                Log.i("CURSOR", "cursor.getColumnIndex(MediaStore.Images.Media.DATA:" + cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+                path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openAlbum();
+                } else {
+                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+        }
+    }
+
+
+
+
+    //添加基本物品信息
+    public void addWhole(objectInfo OB)
+    {
+        objectDBHelper = new ObjectDBHelper(add_stock.this, "objectManager.db", null,1);
+        SQLiteDatabase db = objectDBHelper.getReadableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("OB_json","");
+        values.put("OB_name",OB.getOB_name());
+        values.put("OB_guarantee_day",OB.getOB_guarantee_day());
+        values.put("OB_URL",UriInfo);
+
+        db.insert("whole",null,values);
+        db.close();
     }
 
     //计算间隔天数
@@ -500,7 +615,6 @@ public class add_stock extends AppCompatActivity {
         betweenDays = day2-day1;
         return betweenDays;
     }
-
 
     private void initView() {
         et_object_name =  findViewById(R.id.et_object_name);
@@ -529,7 +643,6 @@ public class add_stock extends AppCompatActivity {
         btn_return = findViewById(R.id.btn_return);
         btn_clear = findViewById(R.id.btn_clear);
     }
-
 
     //验证用户是否按要求输入了数据,若不符合不得保存
     private boolean checkUIInput() { // 物品名称，保质期天数,生产日期,保质旋钮
@@ -560,6 +673,7 @@ public class add_stock extends AppCompatActivity {
             return false;
         }         return true;
     }
+
 
 
 
