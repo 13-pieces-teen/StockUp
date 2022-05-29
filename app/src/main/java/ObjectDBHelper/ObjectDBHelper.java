@@ -5,10 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
 
-import com.example.stockup.objectInfo;
-import com.example.stockup.wholeObject;
+import com.example.stockup.entity.objectInfo;
+import com.example.stockup.entity.wholeObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,17 +118,6 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
-    public class initdate {
-        public Bitmap bitmap;
-        public String content;
-        public String data;
-        public initdate (Bitmap bitmap ,String context,String time){
-            this.bitmap =bitmap;
-            this.content =context;
-            this.data =time;
-        }
-    }
 
 
     //添加食物
@@ -306,7 +294,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
     public List<wholeObject> getWholeInfo() {
         List<wholeObject> infos = new ArrayList<>();
         wholeObject who1 = null;
-        Cursor cursor = db.query(TABLE_WHOLE, new String[]{"OB_json","OB_name","OB_guarantee_day",
+        Cursor cursor = db.query(TABLE_WHOLE, new String[]{"OB_ID","OB_json","OB_name","OB_guarantee_day",
                 "OB_url"}, null, null, null, null, null);
         while (cursor.moveToNext()) {
             who1 = new wholeObject();
@@ -329,18 +317,19 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
                 "OB_url"}, "OB_name" + "=?", new String[]{username}, null, null, null);
         wholeObject who1 = new wholeObject();
         if (cursor.moveToFirst()) {
-            who1.setOB_json(cursor.getString(0));
-            who1.setOB_name(cursor.getString(1));
-            who1.setOB_guarantee_day(cursor.getString(2));
-            who1.setOB_uri(cursor.getString(3));
+            who1.setID(cursor.getInt(0));
+            who1.setOB_json(cursor.getString(1));
+            who1.setOB_name(cursor.getString(2));
+            who1.setOB_guarantee_day(cursor.getString(3));
+            who1.setOB_uri(cursor.getString(4));
         }
         return who1;
     }
 
 
     //删除某物品
-    public void deleteObject(int id) {
-        db.delete(TABLE_FOOD, id + "=?", new String[]{String.valueOf(id)});
+    public void deleteObject(String name) {
+        db.delete(TABLE_FOOD, name + "=?", new String[]{String.valueOf("OB_NAME")});
         System.out.println("删除成功！！！");
     }
 

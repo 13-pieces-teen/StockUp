@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.stockup">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -10,27 +12,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StockUp">
-
-        <activity android:name=".add_stock"
-            android:label="增加物品">
-        </activity>
-
-        <activity android:name=".Stock_Activity.Food_Stock_Act"
-            android:label="食物">
-        </activity>
-
-        <activity android:name=".Stock_Activity.Drug_Stock_Act"
-            android:label="药品">
-        </activity>
-
-        <activity android:name=".Stock_Activity.Cosmetics_Stock_Act"
-            android:label="化妆品">
-        </activity>
-
-        <activity android:name=".Stock_Activity.Supplies_Stock_Act"
-            android:label="物资">
-        </activity>
-
+        <activity
+            android:name=".update_stock"
+            android:exported="false" />
+        <activity
+            android:name=".add_stock"
+            android:label="增加物品"></activity>
+        <activity
+            android:name=".Stock_Activity.Food_Stock_Act"
+            android:label="食物"></activity>
+        <activity
+            android:name=".Stock_Activity.Drug_Stock_Act"
+            android:label="药品"></activity>
+        <activity
+            android:name=".Stock_Activity.Cosmetics_Stock_Act"
+            android:label="化妆品"></activity>
+        <activity
+            android:name=".Stock_Activity.Supplies_Stock_Act"
+            android:label="物资"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -42,18 +41,14 @@
         </activity>
 
         <provider
-            android:authorities="com.example.stockup.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.stockup.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/files" />
-            </provider>
+        </provider>
     </application>
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
 </manifest>
-

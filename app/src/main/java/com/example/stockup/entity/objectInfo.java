@@ -1,4 +1,4 @@
-package com.example.stockup;
+package com.example.stockup.entity;
 
 public class objectInfo {
     //物品名称，物品类别，保质天数，生产日期，过期日期，开封日期，备注，产品数量，间隔天数

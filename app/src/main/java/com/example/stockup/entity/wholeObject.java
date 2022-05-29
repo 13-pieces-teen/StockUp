@@ -1,6 +1,7 @@
-package com.example.stockup;
+package com.example.stockup.entity;
 
 public class wholeObject {
+    private int ID;
     private String OB_name;//物品名称
     private String OB_guarantee_day;//保质天数
     private String OB_json;//json数据
@@ -9,22 +10,21 @@ public class wholeObject {
     public wholeObject() {
         super();
     }
-    public wholeObject(String OB_name, String OB_guarantee_day, String OB_json, String OB_uri) {
+    public wholeObject(int ID, String OB_name, String OB_guarantee_day, String OB_json, String OB_uri) {
         super();
+        this.ID = ID;
         this.OB_name = OB_name;
         this.OB_guarantee_day = OB_guarantee_day;
         this.OB_json = OB_json;
         this.OB_uri = OB_uri;
     }
 
-    @Override
-    public String toString() {
-        return "wholeObject{" +
-                "OB_name='" + OB_name + '\'' +
-                ", OB_guarantee_day='" + OB_guarantee_day + '\'' +
-                ", OB_json='" + OB_json + '\'' +
-                ", OB_uri='" + OB_uri + '\'' +
-                '}';
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getOB_name() {
@@ -57,5 +57,16 @@ public class wholeObject {
 
     public void setOB_uri(String OB_uri) {
         this.OB_uri = OB_uri;
+    }
+
+    @Override
+    public String toString() {
+        return "wholeObject{" +
+                "ID=" + ID +
+                ", OB_name='" + OB_name + '\'' +
+                ", OB_guarantee_day='" + OB_guarantee_day + '\'' +
+                ", OB_json='" + OB_json + '\'' +
+                ", OB_uri='" + OB_uri + '\'' +
+                '}';
     }
 }
