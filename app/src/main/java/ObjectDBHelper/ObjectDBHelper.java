@@ -110,12 +110,12 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
     //升级方法，删除旧表增加新表
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WHOLE + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DURG + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COSMETICS + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUPPLIES + ";");
-        onCreate(db);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WHOLE + ";");
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD + ";");
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DURG + ";");
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COSMETICS + ";");
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUPPLIES + ";");
+//        onCreate(db);
     }
 
 
@@ -132,7 +132,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_after_date",OB.getOB_after_date());
         values.put("OB_open_date", OB.getOB_open_date());
         values.put("OB_amount", OB.getOB_amount());
-        values.put("OB_gurantee",OB.getOB_guarantee_day());
+        values.put("OB_guarantee_day",OB.getOB_guarantee_day());
         values.put("OB_remarks", OB.getOB_remarks());
         values.put("OB_between", OB.getBetweenDays());
 
@@ -150,7 +150,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_produce_date",OB.getOB_produce_date());
         values.put("OB_after_date",OB.getOB_after_date());
         values.put("OB_open_date", OB.getOB_open_date());
-        values.put("OB_gurantee",OB.getOB_guarantee_day());
+        values.put("OB_guarantee_day",OB.getOB_guarantee_day());
         values.put("OB_amount", OB.getOB_amount());
         values.put("OB_remarks", OB.getOB_remarks());
         values.put("OB_between", OB.getBetweenDays());
@@ -169,7 +169,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_produce_date",OB.getOB_produce_date());
         values.put("OB_after_date",OB.getOB_after_date());
         values.put("OB_open_date", OB.getOB_open_date());
-        values.put("OB_gurantee",OB.getOB_guarantee_day());
+        values.put("OB_guarantee_day",OB.getOB_guarantee_day());
         values.put("OB_amount", OB.getOB_amount());
         values.put("OB_remarks", OB.getOB_remarks());
         values.put("OB_between", OB.getBetweenDays());
@@ -189,7 +189,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_after_date",OB.getOB_after_date());
         values.put("OB_open_date", OB.getOB_open_date());
         values.put("OB_amount", OB.getOB_amount());
-        values.put("OB_gurantee",OB.getOB_guarantee_day());
+        values.put("OB_guarantee_day",OB.getOB_guarantee_day());
         values.put("OB_remarks", OB.getOB_remarks());
         values.put("OB_between", OB.getBetweenDays());
 
