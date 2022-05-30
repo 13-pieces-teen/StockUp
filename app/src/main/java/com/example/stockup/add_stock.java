@@ -1,5 +1,16 @@
 package com.example.stockup;
 
+import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -13,6 +24,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -96,6 +110,8 @@ public class add_stock extends AppCompatActivity {
     private int nextYear;//过期日期（年）
     private int betweenDays;//间隔天数
     private ObjectDBHelper objectDBHelper;
+
+
 
 
     @Override
@@ -481,6 +497,33 @@ public class add_stock extends AppCompatActivity {
                     }
                 }
                 break;
+                //REQUEST_CODE为扫一扫的
+            case REQUEST_CODE:
+                IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+                if (intentResult != null) {
+                    if (intentResult.getContents() == null) {
+                        Toast.makeText(this, "扫码失败", Toast.LENGTH_SHORT).show();
+                        ;
+                    }
+
+                } else {
+                    String object_Json = intentResult.getContents();//返回值
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String object_name = doGet_json.get_jsonname(object_Json);
+                            Message retname = new Message();
+                            retname.what = 0;
+                            retname.obj = object_name;
+                            mhandler.sendMessage(retname);
+
+                        }
+                    }).start();
+                }
+                break;
+
+            default:
+                break;
             default:
                 break;
         }
@@ -494,7 +537,20 @@ public class add_stock extends AppCompatActivity {
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
             }
         }
+
     }
+    //自动补全名称
+    private Handler mhandler =new Handler(Looper.myLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg){
+            super.handleMessage(msg);
+            if(msg.what==0){
+                String ob_name=(String) msg.obj;
+                et_object_name.setText(ob_name);
+            }
+        }
+
+    };
 
 
     /**

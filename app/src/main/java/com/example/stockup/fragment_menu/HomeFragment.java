@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.stockup.Stock_Activity.Cosmetics_Stock_Act;
+import com.example.stockup.Stock_Activity.Drug_Stock_Act;
 import com.example.stockup.Stock_Activity.Food_Stock_Act;
 import com.example.stockup.R;
+import com.example.stockup.Stock_Activity.Supplies_Stock_Act;
 
 import java.util.Calendar;
 
@@ -58,6 +61,27 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getActivity() ,Food_Stock_Act.class);
+                startActivity(intent);
+            }
+        });
+        bnt_supplies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity() , Supplies_Stock_Act.class);
+                startActivity(intent);
+            }
+        });
+        bnt_cosmetics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity() , Cosmetics_Stock_Act.class);
+                startActivity(intent);
+            }
+        });
+        bnt_drug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity() , Drug_Stock_Act.class);
                 startActivity(intent);
             }
         });

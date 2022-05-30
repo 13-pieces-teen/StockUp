@@ -6,16 +6,16 @@
              android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="391dp"
-        android:layout_height="84dp"
+        android:layout_width="411dp"
+        android:layout_height="108dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/list_image"
             android:layout_width="100dp"
-            android:layout_height="82dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -29,26 +29,73 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/list_image"
             app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:text="TextView" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="34dp"
-                android:orientation="horizontal"></LinearLayout>
+                android:layout_height="28dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/list_Name"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/list_Num"
+                    android:layout_width="159dp"
+                    android:layout_height="match_parent"
+                    android:text="TextView" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/list_textName6"
+                    android:layout_width="111dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/生产日期" />
+
+                <TextView
+                    android:id="@+id/list_textName7"
+                    android:layout_width="111dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/过期日期" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/list_produceDate"
+                    android:layout_width="153dp"
+                    android:layout_height="match_parent"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/list_afterDate"
+                    android:layout_width="156dp"
+                    android:layout_height="match_parent"
+                    android:text="TextView" />
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
