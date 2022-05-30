@@ -1,15 +1,15 @@
 package com.example.stockup;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.stockup.Adapter.ViewPagerAdapter;
 import com.example.stockup.fragment_menu.CalFragment;
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
     private FloatingActionButton fab_add;
     List<Fragment> fragmentList;
+    private Button btn_test;
 
 
     @Override
@@ -37,6 +38,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         intView();
+
+
+
+        btn_test = findViewById(R.id.btn_test);
+        btn_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, update_stock.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
+                startActivity(intent);
+            }
+        });
+
+
+
         intData();
         adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         vp.setAdapter(adapter);

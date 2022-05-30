@@ -1,11 +1,16 @@
 package com.example.stockup;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.stockup.entity.wholeObject;
+
+import ObjectDBHelper.ObjectDBHelper;
 
 public class update_stock extends AppCompatActivity {
 
@@ -18,16 +23,28 @@ public class update_stock extends AppCompatActivity {
 
     private TextView tv_guarantee;
     private TextView tv_after_date;
+    private TextView tv_result;
+    private ObjectDBHelper DBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_stock);
-
+        DBHelper = new ObjectDBHelper(this);
         initView();
 
-
     }
+
+    public void query(View view) {
+//        String name = etName.getText().toString().trim();
+            // 查询所有数据
+            wholeObject food1 = DBHelper.searchObject("12345");
+            String name = food1.getOB_name();
+            tv_result.setText(name);
+    }
+
+
+
 
     private void initView() {
         btn_return = findViewById(R.id.btn_return);
@@ -39,6 +56,7 @@ public class update_stock extends AppCompatActivity {
 
         tv_after_date = findViewById(R.id.tv_after_date);
         tv_guarantee = findViewById(R.id.tv_guarantee);
+        tv_result = findViewById(R.id.tv_result);
 
     }
 }
