@@ -1,4 +1,6 @@
 package com.example.stockup;
+import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -101,6 +106,8 @@ public class add_stock extends AppCompatActivity {
     private ObjectDBHelper objectDBHelper;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +127,7 @@ public class add_stock extends AppCompatActivity {
                 betweenDay();
                 //计算离到期还有几天
                 int calDays = betweenDays * progress / 100;
-                String ss = String.format("%d天",calDays);
+                String ss = String.format("%d天", calDays);
                 tv_days.setText(ss);
             }
 
@@ -133,6 +140,7 @@ public class add_stock extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
+
         });
 
         //spanner（物品种类的监听事件）
@@ -142,9 +150,10 @@ public class add_stock extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //这个方法里可以对点击事件进行处理
                 //i指的是点击的位置,通过i可以取到相应的数据源
-                objectType=adapterView.getItemAtPosition(i).toString();//获取i所在的文本
-                Toast.makeText(add_stock.this,objectType,Toast.LENGTH_SHORT).show();
+                objectType = adapterView.getItemAtPosition(i).toString();//获取i所在的文本
+                Toast.makeText(add_stock.this, objectType, Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -154,23 +163,23 @@ public class add_stock extends AppCompatActivity {
         DateGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-            // 选中状态改变时被触发
+                // 选中状态改变时被触发
                 switch (checkedId) {
                     case R.id.rb_day:
                         // 当用户选择“天”时
-                        Log.i("DAY", "当前用户选择"+rb_day.getText().toString());
+                        Log.i("DAY", "当前用户选择" + rb_day.getText().toString());
                         dayFlag = 0;
                         dateType = "天";
                         break;
                     case R.id.rb_month:
                         // 当用户选择“月”时
-                        Log.i("MONTH", "当前用户选择"+rb_month.getText().toString());
+                        Log.i("MONTH", "当前用户选择" + rb_month.getText().toString());
                         dayFlag = 1;
                         dateType = "月";
                         break;
                     case R.id.rb_year:
                         // 当用户选择“年”时
-                        Log.i("YEAR", "当前用户选择"+rb_year.getText().toString());
+                        Log.i("YEAR", "当前用户选择" + rb_year.getText().toString());
                         dayFlag = 2;
                         dateType = "年";
                         break;
@@ -252,17 +261,14 @@ public class add_stock extends AppCompatActivity {
                                 guaranteeNumber = Integer.parseInt(et_guarantee_date.getText().toString());
                                 //获取生产日期
                                 Calendar nowDate = Calendar.getInstance();
-                                nowDate.set(nowYear,nowMonth,nowDay);
+                                nowDate.set(nowYear, nowMonth, nowDay);
                                 Calendar nextDate = nowDate;
                                 //当前时间 加guaranteeNumber + radiogroup的选择（年/月/日）
-                                if (dayFlag == 0)
-                                {
+                                if (dayFlag == 0) {
                                     nextDate.add(Calendar.DAY_OF_MONTH, guaranteeNumber);
-                                }else if (dayFlag == 1)
-                                {
+                                } else if (dayFlag == 1) {
                                     nextDate.add(Calendar.MONTH, guaranteeNumber);
-                                }else if (dayFlag == 2)
-                                {
+                                } else if (dayFlag == 2) {
                                     nextDate.add(Calendar.YEAR, guaranteeNumber);
                                 }
                                 nextYear = nextDate.get(Calendar.YEAR);
@@ -358,7 +364,7 @@ public class add_stock extends AppCompatActivity {
                 // 插入数据库中
                 String objectType = object1.getOB_type();
                 long rowId;
-                switch (objectType){
+                switch (objectType) {
                     case "食品":
                         rowId = objectDBHelper.addFood(object1);
                         Log.i("数据库", "数据库加入食品");
@@ -391,6 +397,8 @@ public class add_stock extends AppCompatActivity {
         btn_QR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //扫一扫
                 IntentIntegrator integrator = new IntentIntegrator(add_stock.this);
                 // integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
@@ -405,13 +413,12 @@ public class add_stock extends AppCompatActivity {
 
 
     //收集界面输入的数据，并将封装成objectInfo对象
-    private objectInfo getObjectFromUI()
-    {
+    private objectInfo getObjectFromUI() {
         //物品名称，物品类别，保质天数，生产日期，过期日期，开封日期，备注，产品数量，间隔天数
         String objectName = et_object_name.getText().toString();
         //物品类别在全局变量里（objectType）
         //物品保质天数 （xx天/月/年）
-        String objectGuarantee = String.format("%d%s",guaranteeNumber,dateType);
+        String objectGuarantee = String.format("%d%s", guaranteeNumber, dateType);
         String objectProduceDate = et_produce_date.getText().toString().trim();
         String objectAfterDate = et_after_date.getText().toString().trim();
         String objectOpenDate = et_open_date.getText().toString().trim();
@@ -426,7 +433,9 @@ public class add_stock extends AppCompatActivity {
     }
 
 
-    //图像保存在页面上和返回json码
+
+
+    //图像保存在页面上和返回json码+开启子线程调用api
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -442,19 +451,48 @@ public class add_stock extends AppCompatActivity {
                     }
                 }
                 break;
+                //REQUEST_CODE为扫一扫的
+            case REQUEST_CODE:
+                IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+                if (intentResult != null) {
+                    if (intentResult.getContents() == null) {
+                        Toast.makeText(this, "扫码失败", Toast.LENGTH_SHORT).show();
+                        ;
+                    }
+
+                } else {
+                    String object_Json = intentResult.getContents();//返回值
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String object_name = doGet_json.get_jsonname(object_Json);
+                            Message retname = new Message();
+                            retname.what = 0;
+                            retname.obj = object_name;
+                            mhandler.sendMessage(retname);
+
+                        }
+                    }).start();
+                }
+                break;
+
             default:
                 break;
         }
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (intentResult != null) {
-            if (intentResult.getContents() == null) {
-                Toast.makeText(this, "扫码失败", Toast.LENGTH_SHORT).show();
-            } else {
-                String result = intentResult.getContents();//返回值
-                Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+
+    }
+    //自动补全名称
+    private Handler mhandler =new Handler(Looper.myLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg){
+            super.handleMessage(msg);
+            if(msg.what==0){
+                String ob_name=(String) msg.obj;
+                et_object_name.setText(ob_name);
             }
         }
-    }
+
+    };
 
     //自动计算过期日期(废案，会闪退)
     public void calculateDate() {
