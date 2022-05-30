@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 import com.example.stockup.R;
-import com.example.stockup.objectInfo;
+import com.example.stockup.entity.objectInfo;
 
 import java.util.List;
 
