@@ -717,9 +717,4 @@ public class add_stock extends AppCompatActivity {
             return false;
         }         return true;
     }
-
-
-
-
-
 }
