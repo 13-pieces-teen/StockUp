@@ -60,7 +60,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
             ", OB_remarks text" +
             ", OB_between integer)";
 
-    //化妆品表
+    //物资表
     private static final String CREATE_TABLE_SUPPLIES = "create table " + TABLE_SUPPLIES + " " +
             "(id integer primary key autoincrement," +
             "OB_name text, " +
@@ -73,7 +73,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
             ", OB_remarks text" +
             ", OB_between integer)";
 
-    //物资表
+    //化妆品表
     private static final String CREATE_TABLE_COSMETICS = "create table " + TABLE_COSMETICS + " " +
             "(id integer primary key autoincrement," +
             "OB_name text, " +
@@ -200,44 +200,47 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
 
     //获取listview所需信息(food)
     public List<objectInfo> getFoodInfo() {
+        //"OB_name","OB_type","OB_produce_date","OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"
+        SQLiteDatabase db = getWritableDatabase();
         List<objectInfo> infos = new ArrayList<>();
         objectInfo obj1 = null;
-        Cursor cursor = db.query(TABLE_FOOD, new String[]{"OB_name","OB_type","OB_produce_date",
-                "OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"}, null, null, null, null, null);
-        while (cursor.moveToNext()) {
-            obj1 = new objectInfo();
-            obj1.setOB_name(cursor.getString(0));
-            obj1.setOB_type(cursor.getString(1));
-            obj1.setOB_produce_date(cursor.getString(2));
-            obj1.setOB_after_date(cursor.getString(3));
-            obj1.setOB_open_date(cursor.getString(4));
-            obj1.setOB_amount(cursor.getInt(5));
-            obj1.setOB_guarantee_day(cursor.getString(6));
-            obj1.setOB_remarks(cursor.getString(7));
-            obj1.setBetweenDays(cursor.getInt(8));
-            infos.add(obj1);
+        //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
+         Cursor cursor = db.query(TABLE_FOOD,null, null, null, null, null, null);
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                obj1 = new objectInfo();
+                obj1.setOB_name(cursor.getString(1));
+                obj1.setOB_type(cursor.getString(2));
+                obj1.setOB_produce_date(cursor.getString(3));
+                obj1.setOB_after_date(cursor.getString(4));
+                obj1.setOB_open_date(cursor.getString(5));
+                obj1.setOB_amount(cursor.getInt(6));
+                obj1.setOB_guarantee_day(cursor.getString(7));
+                obj1.setOB_remarks(cursor.getString(8));
+                obj1.setBetweenDays(cursor.getInt(9));
+                infos.add(obj1);
+            }
+            cursor.close();
         }
-        System.out.println("ObjectDBHelper.getAllUser.size->>>" + infos.size());
         return infos;
     }
-
     //获取listview所需信息(durg)
     public List<objectInfo> getDurgInfo() {
         List<objectInfo> infos = new ArrayList<>();
         objectInfo obj1 = null;
-        Cursor cursor = db.query(TABLE_DURG, new String[]{"OB_name","OB_type","OB_produce_date",
-                "OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"}, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_DURG,null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             obj1 = new objectInfo();
-            obj1.setOB_name(cursor.getString(0));
-            obj1.setOB_type(cursor.getString(1));
-            obj1.setOB_produce_date(cursor.getString(2));
-            obj1.setOB_after_date(cursor.getString(3));
-            obj1.setOB_open_date(cursor.getString(4));
-            obj1.setOB_amount(cursor.getInt(5));
-            obj1.setOB_guarantee_day(cursor.getString(6));
-            obj1.setOB_remarks(cursor.getString(7));
-            obj1.setBetweenDays(cursor.getInt(8));
+            obj1.setOB_name(cursor.getString(1));
+            obj1.setOB_type(cursor.getString(2));
+            obj1.setOB_produce_date(cursor.getString(3));
+            obj1.setOB_after_date(cursor.getString(4));
+            obj1.setOB_open_date(cursor.getString(5));
+            obj1.setOB_amount(cursor.getInt(6));
+            obj1.setOB_guarantee_day(cursor.getString(7));
+            obj1.setOB_remarks(cursor.getString(8));
+            obj1.setBetweenDays(cursor.getInt(9));
             infos.add(obj1);
         }
         System.out.println("ObjectDBHelper.getAllUser.size->>>" + infos.size());
@@ -248,19 +251,18 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
     public List<objectInfo> getCosmeticsInfo() {
         List<objectInfo> infos = new ArrayList<>();
         objectInfo obj1 = null;
-        Cursor cursor = db.query(TABLE_COSMETICS, new String[]{"OB_name","OB_type","OB_produce_date",
-                "OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"}, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_COSMETICS,null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             obj1 = new objectInfo();
-            obj1.setOB_name(cursor.getString(0));
-            obj1.setOB_type(cursor.getString(1));
-            obj1.setOB_produce_date(cursor.getString(2));
-            obj1.setOB_after_date(cursor.getString(3));
-            obj1.setOB_open_date(cursor.getString(4));
-            obj1.setOB_amount(cursor.getInt(5));
-            obj1.setOB_guarantee_day(cursor.getString(6));
-            obj1.setOB_remarks(cursor.getString(7));
-            obj1.setBetweenDays(cursor.getInt(8));
+            obj1.setOB_name(cursor.getString(1));
+            obj1.setOB_type(cursor.getString(2));
+            obj1.setOB_produce_date(cursor.getString(3));
+            obj1.setOB_after_date(cursor.getString(4));
+            obj1.setOB_open_date(cursor.getString(5));
+            obj1.setOB_amount(cursor.getInt(6));
+            obj1.setOB_guarantee_day(cursor.getString(7));
+            obj1.setOB_remarks(cursor.getString(8));
+            obj1.setBetweenDays(cursor.getInt(9));
             infos.add(obj1);
         }
         System.out.println("ObjectDBHelper.getAllUser.size->>>" + infos.size());
@@ -271,19 +273,18 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
     public List<objectInfo> getSuppliesInfo() {
         List<objectInfo> infos = new ArrayList<>();
         objectInfo obj1 = null;
-        Cursor cursor = db.query(TABLE_SUPPLIES, new String[]{"OB_name","OB_type","OB_produce_date",
-                "OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"}, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_SUPPLIES, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             obj1 = new objectInfo();
-            obj1.setOB_name(cursor.getString(0));
-            obj1.setOB_type(cursor.getString(1));
-            obj1.setOB_produce_date(cursor.getString(2));
-            obj1.setOB_after_date(cursor.getString(3));
-            obj1.setOB_open_date(cursor.getString(4));
-            obj1.setOB_amount(cursor.getInt(5));
-            obj1.setOB_guarantee_day(cursor.getString(6));
-            obj1.setOB_remarks(cursor.getString(7));
-            obj1.setBetweenDays(cursor.getInt(8));
+            obj1.setOB_name(cursor.getString(1));
+            obj1.setOB_type(cursor.getString(2));
+            obj1.setOB_produce_date(cursor.getString(3));
+            obj1.setOB_after_date(cursor.getString(4));
+            obj1.setOB_open_date(cursor.getString(5));
+            obj1.setOB_amount(cursor.getInt(6));
+            obj1.setOB_guarantee_day(cursor.getString(7));
+            obj1.setOB_remarks(cursor.getString(8));
+            obj1.setBetweenDays(cursor.getInt(9));
             infos.add(obj1);
         }
         System.out.println("ObjectDBHelper.getAllUser.size->>>" + infos.size());
@@ -294,8 +295,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
     public List<wholeObject> getWholeInfo() {
         List<wholeObject> infos = new ArrayList<>();
         wholeObject who1 = null;
-        Cursor cursor = db.query(TABLE_WHOLE, new String[]{"OB_ID","OB_json","OB_name","OB_guarantee_day",
-                "OB_url"}, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_WHOLE, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             who1 = new wholeObject();
             who1.setOB_json(cursor.getString(0));

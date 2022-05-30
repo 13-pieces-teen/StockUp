@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 import com.example.stockup.R;
-import com.example.stockup.objectInfo;
+import com.example.stockup.entity.objectInfo;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class ListViewAdapter extends ArrayAdapter{
 
         //list_Image.setImageResource(items.get);
         list_Name.setText(items.getOB_name());
-        list_Num.setText(items.getOB_amount());
+        list_Num.setText(Integer.toString(items.getOB_amount()));
         list_produceDate.setText(items.getOB_produce_date());
         list_afterDate.setText(items.getOB_after_date());
         return view;

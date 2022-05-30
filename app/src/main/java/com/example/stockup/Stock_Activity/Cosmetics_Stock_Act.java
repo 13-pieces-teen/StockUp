@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.stockup.Adapter.ListViewAdapter;
 import com.example.stockup.R;
-import com.example.stockup.objectInfo;
+import com.example.stockup.entity.objectInfo;
 
 import java.util.ArrayList;
 import java.util.List;

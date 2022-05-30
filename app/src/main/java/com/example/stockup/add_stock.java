@@ -524,8 +524,6 @@ public class add_stock extends AppCompatActivity {
 
             default:
                 break;
-            default:
-                break;
         }
 
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
