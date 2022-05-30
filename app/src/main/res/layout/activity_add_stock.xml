@@ -61,7 +61,6 @@
         </LinearLayout>
 
 
-        <!--        底部固定-->
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -280,7 +279,7 @@
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="63dp"
+                        android:layout_height="70dp"
                         android:layout_marginTop="3dp">
 
                         <TextView
@@ -331,6 +330,29 @@
                             android:layout_marginTop="31dp"
                             android:max="100"
                             android:progress="50"></SeekBar>
+
+                        <TextView
+                            android:id="@+id/tv_0percent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/sb_remind"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="17dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="356dp"
+                            android:text="0%"></TextView>
+
+                        <TextView
+                            android:id="@+id/tv_100percent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/sb_remind"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="17dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="15dp"
+                            android:text="100%"></TextView>
 
                     </RelativeLayout>
 
@@ -402,7 +424,6 @@
             <Button
                 android:id="@+id/btn_save"
                 android:text="保存"
-                android:onClick="save"
                 android:layout_width="250dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"

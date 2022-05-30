@@ -585,8 +585,6 @@ public class add_stock extends AppCompatActivity {
     }
 
 
-
-
     //添加基本物品信息
     public void addWhole(objectInfo OB)
     {

@@ -13,23 +13,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StockUp">
         <activity
+            android:name=".stock_details"
+            android:exported="false" />
+        <activity
             android:name=".update_stock"
             android:exported="false" />
         <activity
             android:name=".add_stock"
-            android:label="增加物品"></activity>
+            android:label="增加物品" />
         <activity
             android:name=".Stock_Activity.Food_Stock_Act"
-            android:label="食物"></activity>
+            android:label="食物" />
         <activity
             android:name=".Stock_Activity.Drug_Stock_Act"
-            android:label="药品"></activity>
+            android:label="药品" />
         <activity
             android:name=".Stock_Activity.Cosmetics_Stock_Act"
-            android:label="化妆品"></activity>
+            android:label="化妆品" />
         <activity
             android:name=".Stock_Activity.Supplies_Stock_Act"
-            android:label="物资"></activity>
+            android:label="物资" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -15,10 +15,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#ACB3A5</color>
 
-    <color name="green_200">#C5E1A5</color>
+    <color name="green_200">#54C5E1A5</color>
     <color name="green_500">#8BC34A</color>
     <color name="green_700">#689F38</color>
     <color name="bule">#B90497FD</color>
     <color name="orange">#FF9900</color>
     <color name="colorGray">#969696</color>
+    <color name="colorQianBlue">#3BB0E6FF</color>
+    <color name="colorDeepBlue">#275F82FF</color>
+
 </resources>
