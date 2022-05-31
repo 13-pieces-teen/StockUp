@@ -23,7 +23,6 @@ public class update_stock extends AppCompatActivity {
 
     private TextView tv_guarantee;
     private TextView tv_after_date;
-    private TextView tv_result;
     private ObjectDBHelper DBHelper;
 
     @Override
@@ -33,15 +32,10 @@ public class update_stock extends AppCompatActivity {
         DBHelper = new ObjectDBHelper(this);
         initView();
 
+
     }
 
-    public void query(View view) {
-//        String name = etName.getText().toString().trim();
-            // 查询所有数据
-            wholeObject food1 = DBHelper.searchObject("12345");
-            String name = food1.getOB_name();
-            tv_result.setText(name);
-    }
+
 
 
 
@@ -56,7 +50,6 @@ public class update_stock extends AppCompatActivity {
 
         tv_after_date = findViewById(R.id.tv_after_date);
         tv_guarantee = findViewById(R.id.tv_guarantee);
-        tv_result = findViewById(R.id.tv_result);
 
     }
 }
