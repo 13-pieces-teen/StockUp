@@ -14,5 +14,6 @@
     <string name="home">home</string>
     <string name="settings">settings</string>
     <string name="calendar">calendar</string>
+    <string name="数量">数量</string>
 
 </resources>

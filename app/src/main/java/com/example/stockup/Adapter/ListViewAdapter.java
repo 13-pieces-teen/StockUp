@@ -45,16 +45,15 @@ public class ListViewAdapter extends ArrayAdapter{
 
         //list_Image.setImageResource(items.get);
         list_Name.setText(items.getOB_name());
-        list_Num.setText(Integer.toString(items.getOB_amount()));
+        list_Num.setText(Integer.toString(items.getOB_amount())+" 个");
         list_produceDate.setText(items.getOB_produce_date());
         list_afterDate.setText(items.getOB_after_date());
         int between_days=items.getBetweenDays();
        // 对于东西保质期进行100等分；progressbar
         try {
             int runDay=progressBar.getProgress();
-            int run_day=StringtoData(items.getOB_after_date());
-            run_day=(run_day/between_days)*100;
-            runDay=runDay+run_day;
+            double run_day=( (double)StringtoData(items.getOB_produce_date())/(double)between_days)*100;
+            runDay=runDay+(int)run_day;
             progressBar.setProgress(runDay);
         } catch (ParseException e) {
             e.printStackTrace();
