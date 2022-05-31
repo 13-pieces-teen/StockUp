@@ -76,6 +76,5 @@ public class ListViewAdapter extends ArrayAdapter{
         //计算
         diffday = cal2.get(Calendar.DAY_OF_YEAR) -cal_Pro.get(Calendar.DAY_OF_YEAR);
         return  diffday;
-
     }
 }
