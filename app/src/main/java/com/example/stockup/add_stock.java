@@ -667,8 +667,24 @@ public class add_stock extends AppCompatActivity {
         //计算此日期是一年中的哪一天
         int day1=a.get(Calendar.DAY_OF_YEAR);
         int day2=b.get(Calendar.DAY_OF_YEAR);
-        betweenDays = day2-day1;
-        return betweenDays;
+        //计算年数
+        int year1 = a.get(Calendar.YEAR);
+        int year2 = b.get(Calendar.YEAR);
+        if(year1!=year2){
+            for(int i = year1 ; i < year2 ; i ++)
+            {
+                if(i%4==0 && i%100!=0 || i%400==0) //闰年
+                    day2 += 366;
+                else //不是闰年
+                    day2+= 365;
+            }
+            betweenDays = day2-day1;
+            return betweenDays;
+        }
+        else {
+            betweenDays = day2-day1;
+            return betweenDays;
+        }
     }
 
     private void initView() {

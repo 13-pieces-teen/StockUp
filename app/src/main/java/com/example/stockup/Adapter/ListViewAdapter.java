@@ -1,5 +1,7 @@
 package com.example.stockup.Adapter;
 
+import static java.lang.Math.abs;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,8 +74,26 @@ public class ListViewAdapter extends ArrayAdapter{
         //得到当前日期
         Calendar cal2 = Calendar.getInstance();
 
-        //计算
-        diffday = cal2.get(Calendar.DAY_OF_YEAR) -cal_Pro.get(Calendar.DAY_OF_YEAR);
-        return  diffday;
+        int day1=cal_Pro.get(Calendar.DAY_OF_YEAR);
+        int day2=cal2.get(Calendar.DAY_OF_YEAR);
+        //计算年数
+        int year1 = cal_Pro.get(Calendar.YEAR);
+        int year2 = cal2.get(Calendar.YEAR);
+        int diffyear=0;
+        if(year1!=year2){
+            for(int i = year1 ; i < year2 ; i ++)
+            {
+                if(i%4==0 && i%100!=0 || i%400==0) //闰年
+                    day2 += 366;
+                else //不是闰年
+                    day2+= 365;
+            }
+            diffyear = day2-day1;
+            return diffyear;
+        }
+        else {
+            diffyear = day2-day1;
+            return diffyear;
+        }
     }
 }
