@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.stockup.entity.objectInfo;
 import com.example.stockup.entity.wholeObject;
@@ -60,7 +61,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
             ", OB_remarks text" +
             ", OB_between integer)";
 
-    //物资表
+    //化妆品表
     private static final String CREATE_TABLE_SUPPLIES = "create table " + TABLE_SUPPLIES + " " +
             "(id integer primary key autoincrement," +
             "OB_name text, " +
@@ -73,7 +74,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
             ", OB_remarks text" +
             ", OB_between integer)";
 
-    //化妆品表
+    //物资表
     private static final String CREATE_TABLE_COSMETICS = "create table " + TABLE_COSMETICS + " " +
             "(id integer primary key autoincrement," +
             "OB_name text, " +
@@ -88,10 +89,12 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
 
     public ObjectDBHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
+        db = this.getWritableDatabase();
     }
 
     public ObjectDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DB_NAME, null, VERSION);
+        db = this.getWritableDatabase();
     }
 
 
@@ -198,6 +201,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
 
 
 
+
     //获取listview所需信息(food)
     public List<objectInfo> getFoodInfo() {
         //"OB_name","OB_type","OB_produce_date","OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"
@@ -205,8 +209,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         List<objectInfo> infos = new ArrayList<>();
         objectInfo obj1 = null;
         //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
-         Cursor cursor = db.query(TABLE_FOOD,null, null, null, null, null, null);
-
+        Cursor cursor = db.query(TABLE_FOOD, null, null, null, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 obj1 = new objectInfo();
@@ -223,27 +226,33 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
             }
             cursor.close();
         }
+        System.out.println("ObjectDBHelper.getAllFood.size->>>" + infos.size());
         return infos;
     }
+
     //获取listview所需信息(durg)
     public List<objectInfo> getDurgInfo() {
         List<objectInfo> infos = new ArrayList<>();
         objectInfo obj1 = null;
-        Cursor cursor = db.query(TABLE_DURG,null, null, null, null, null, null);
-        while (cursor.moveToNext()) {
-            obj1 = new objectInfo();
-            obj1.setOB_name(cursor.getString(1));
-            obj1.setOB_type(cursor.getString(2));
-            obj1.setOB_produce_date(cursor.getString(3));
-            obj1.setOB_after_date(cursor.getString(4));
-            obj1.setOB_open_date(cursor.getString(5));
-            obj1.setOB_amount(cursor.getInt(6));
-            obj1.setOB_guarantee_day(cursor.getString(7));
-            obj1.setOB_remarks(cursor.getString(8));
-            obj1.setBetweenDays(cursor.getInt(9));
-            infos.add(obj1);
+        Cursor cursor = db.query(TABLE_DURG, null,
+                null, null, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                obj1 = new objectInfo();
+                obj1.setOB_name(cursor.getString(1));
+                obj1.setOB_type(cursor.getString(2));
+                obj1.setOB_produce_date(cursor.getString(3));
+                obj1.setOB_after_date(cursor.getString(4));
+                obj1.setOB_open_date(cursor.getString(5));
+                obj1.setOB_amount(cursor.getInt(6));
+                obj1.setOB_guarantee_day(cursor.getString(7));
+                obj1.setOB_remarks(cursor.getString(8));
+                obj1.setBetweenDays(cursor.getInt(9));
+                infos.add(obj1);
+            }
+            cursor.close();
         }
-        System.out.println("ObjectDBHelper.getAllUser.size->>>" + infos.size());
+        System.out.println("ObjectDBHelper.getAllDurg.size->>>" + infos.size());
         return infos;
     }
 
@@ -251,21 +260,24 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
     public List<objectInfo> getCosmeticsInfo() {
         List<objectInfo> infos = new ArrayList<>();
         objectInfo obj1 = null;
-        Cursor cursor = db.query(TABLE_COSMETICS,null, null, null, null, null, null);
-        while (cursor.moveToNext()) {
-            obj1 = new objectInfo();
-            obj1.setOB_name(cursor.getString(1));
-            obj1.setOB_type(cursor.getString(2));
-            obj1.setOB_produce_date(cursor.getString(3));
-            obj1.setOB_after_date(cursor.getString(4));
-            obj1.setOB_open_date(cursor.getString(5));
-            obj1.setOB_amount(cursor.getInt(6));
-            obj1.setOB_guarantee_day(cursor.getString(7));
-            obj1.setOB_remarks(cursor.getString(8));
-            obj1.setBetweenDays(cursor.getInt(9));
-            infos.add(obj1);
+        Cursor cursor = db.query(TABLE_COSMETICS, null, null, null, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                obj1 = new objectInfo();
+                obj1.setOB_name(cursor.getString(1));
+                obj1.setOB_type(cursor.getString(2));
+                obj1.setOB_produce_date(cursor.getString(3));
+                obj1.setOB_after_date(cursor.getString(4));
+                obj1.setOB_open_date(cursor.getString(5));
+                obj1.setOB_amount(cursor.getInt(6));
+                obj1.setOB_guarantee_day(cursor.getString(7));
+                obj1.setOB_remarks(cursor.getString(8));
+                obj1.setBetweenDays(cursor.getInt(9));
+                infos.add(obj1);
+            }
+            cursor.close();
         }
-        System.out.println("ObjectDBHelper.getAllUser.size->>>" + infos.size());
+        System.out.println("ObjectDBHelper.getAllCosmetics.size->>>" + infos.size());
         return infos;
     }
 
@@ -274,20 +286,23 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         List<objectInfo> infos = new ArrayList<>();
         objectInfo obj1 = null;
         Cursor cursor = db.query(TABLE_SUPPLIES, null, null, null, null, null, null);
-        while (cursor.moveToNext()) {
-            obj1 = new objectInfo();
-            obj1.setOB_name(cursor.getString(1));
-            obj1.setOB_type(cursor.getString(2));
-            obj1.setOB_produce_date(cursor.getString(3));
-            obj1.setOB_after_date(cursor.getString(4));
-            obj1.setOB_open_date(cursor.getString(5));
-            obj1.setOB_amount(cursor.getInt(6));
-            obj1.setOB_guarantee_day(cursor.getString(7));
-            obj1.setOB_remarks(cursor.getString(8));
-            obj1.setBetweenDays(cursor.getInt(9));
-            infos.add(obj1);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                obj1 = new objectInfo();
+                obj1.setOB_name(cursor.getString(1));
+                obj1.setOB_type(cursor.getString(2));
+                obj1.setOB_produce_date(cursor.getString(3));
+                obj1.setOB_after_date(cursor.getString(4));
+                obj1.setOB_open_date(cursor.getString(5));
+                obj1.setOB_amount(cursor.getInt(6));
+                obj1.setOB_guarantee_day(cursor.getString(7));
+                obj1.setOB_remarks(cursor.getString(8));
+                obj1.setBetweenDays(cursor.getInt(9));
+                infos.add(obj1);
+            }
+            cursor.close();
         }
-        System.out.println("ObjectDBHelper.getAllUser.size->>>" + infos.size());
+        System.out.println("ObjectDBHelper.getAllSupplies.size->>>" + infos.size());
         return infos;
     }
 
@@ -298,26 +313,22 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_WHOLE, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             who1 = new wholeObject();
-            who1.setOB_json(cursor.getString(0));
-            who1.setOB_name(cursor.getString(1));
-            who1.setOB_guarantee_day(cursor.getString(2));
-            who1.setOB_uri(cursor.getString(3));
+            who1.setOB_json(cursor.getString(1));
+            who1.setOB_name(cursor.getString(2));
+            who1.setOB_guarantee_day(cursor.getString(3));
+            who1.setOB_uri(cursor.getString(4));
             infos.add(who1);
         }
-        System.out.println("ObjectDBHelper.getAllUser.size->>>" + infos.size());
+        System.out.println("ObjectDBHelper.getAllWhole.size->>>" + infos.size());
         return infos;
     }
 
 
-
-
     //通过物品名称在总表查询信息
-    public wholeObject searchObject(String username) {
-        Cursor cursor = db.query(TABLE_WHOLE, new String[]{"OB_json","OB_name","OB_guarantee_day",
-                "OB_url"}, "OB_name" + "=?", new String[]{username}, null, null, null);
+    public wholeObject searchObject(String name) {
+        Cursor cursor = db.query(TABLE_WHOLE, null, "OB_name" + "=?", new String[]{name}, null, null, null);
         wholeObject who1 = new wholeObject();
         if (cursor.moveToFirst()) {
-            who1.setID(cursor.getInt(0));
             who1.setOB_json(cursor.getString(1));
             who1.setOB_name(cursor.getString(2));
             who1.setOB_guarantee_day(cursor.getString(3));
@@ -326,11 +337,104 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         return who1;
     }
 
-
-    //删除某物品
-    public void deleteObject(String name) {
-        db.delete(TABLE_FOOD, name + "=?", new String[]{String.valueOf("OB_NAME")});
-        System.out.println("删除成功！！！");
+    //删除某食品
+    public void deleteFoodWithID(int ID) {
+        db.delete(TABLE_FOOD, "id" + "=?", new String[]{String.valueOf(ID)});
+        System.out.println("食品删除成功！！！");
     }
+
+    //删除某药品
+    public void deleteDurgWithID(int ID) {
+        db.delete(TABLE_FOOD, "id" + "=?", new String[]{String.valueOf(ID)});
+        System.out.println("药品删除成功！！！");
+    }
+
+    //删除某化妆品
+    public void deleteComeWithID(int ID) {
+        db.delete(TABLE_FOOD, "id" + "=?", new String[]{String.valueOf(ID)});
+        System.out.println("化妆品删除成功！！！");
+    }
+
+    //删除某物资
+    public void deleteSuppliesWithID(int ID) {
+        db.delete(TABLE_FOOD, "id" + "=?", new String[]{String.valueOf(ID)});
+        System.out.println("物资删除成功！！！");
+    }
+
+    //通过ID更新食品信息
+    public int updateFoodWithID(objectInfo food, int id) {
+
+        ContentValues values = new ContentValues();
+        values.put("OB_name", food.getOB_name());
+        values.put("OB_type", food.getOB_type());
+        values.put("OB_produce_date",food.getOB_produce_date());
+        values.put("OB_after_date",food.getOB_after_date());
+        values.put("OB_open_date", food.getOB_open_date());
+        values.put("OB_amount", food.getOB_amount());
+        values.put("OB_guarantee_day",food.getOB_guarantee_day());
+        values.put("OB_remarks", food.getOB_remarks());
+        values.put("OB_between", food.getBetweenDays());
+
+        System.out.println("更新食物成功！！！");
+        return db.update(TABLE_FOOD, values, "id" + "=?", new String[]{String.valueOf(id)});
+    }
+
+    //通过ID更新药物信息
+    public int updateDurgWithID(objectInfo durg, int id) {
+
+        ContentValues values = new ContentValues();
+        values.put("OB_name", durg.getOB_name());
+        values.put("OB_type", durg.getOB_type());
+        values.put("OB_produce_date",durg.getOB_produce_date());
+        values.put("OB_after_date",durg.getOB_after_date());
+        values.put("OB_open_date", durg.getOB_open_date());
+        values.put("OB_amount", durg.getOB_amount());
+        values.put("OB_guarantee_day",durg.getOB_guarantee_day());
+        values.put("OB_remarks", durg.getOB_remarks());
+        values.put("OB_between", durg.getBetweenDays());
+
+        System.out.println("更新药物成功！！！");
+        return db.update(TABLE_DURG, values, "id" + "=?", new String[]{String.valueOf(id)});
+    }
+
+    //通过ID更新化妆品信息
+    public int updateCosmeticsWithID(objectInfo cosms, int id) {
+
+        ContentValues values = new ContentValues();
+        values.put("OB_name", cosms.getOB_name());
+        values.put("OB_type", cosms.getOB_type());
+        values.put("OB_produce_date",cosms.getOB_produce_date());
+        values.put("OB_after_date",cosms.getOB_after_date());
+        values.put("OB_open_date", cosms.getOB_open_date());
+        values.put("OB_amount", cosms.getOB_amount());
+        values.put("OB_guarantee_day",cosms.getOB_guarantee_day());
+        values.put("OB_remarks", cosms.getOB_remarks());
+        values.put("OB_between", cosms.getBetweenDays());
+
+        System.out.println("更新化妆品成功！！！");
+        return db.update(TABLE_DURG, values, "id" + "=?", new String[]{String.valueOf(id)});
+    }
+
+    //通过ID更新物资信息
+    public int updateSuppliesWithID(objectInfo supp, int id) {
+
+        ContentValues values = new ContentValues();
+        values.put("OB_name", supp.getOB_name());
+        values.put("OB_type", supp.getOB_type());
+        values.put("OB_produce_date",supp.getOB_produce_date());
+        values.put("OB_after_date",supp.getOB_after_date());
+        values.put("OB_open_date", supp.getOB_open_date());
+        values.put("OB_amount", supp.getOB_amount());
+        values.put("OB_guarantee_day",supp.getOB_guarantee_day());
+        values.put("OB_remarks", supp.getOB_remarks());
+        values.put("OB_between", supp.getBetweenDays());
+
+        System.out.println("更新物资成功！！！");
+        return db.update(TABLE_DURG, values, "id" + "=?", new String[]{String.valueOf(id)});
+    }
+
+
+
+
 
 }

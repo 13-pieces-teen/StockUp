@@ -22,6 +22,7 @@ public class Food_Stock_Act extends AppCompatActivity{
     private ListView listView;//食物列表数组
     private ObjectDBHelper objectDBHelper;
     private List<objectInfo> food_list = new ArrayList<objectInfo>();
+    private int index;//行数索引，也是该食品在数据库里的id
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,9 @@ public class Food_Stock_Act extends AppCompatActivity{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(Food_Stock_Act.this, "你点击了第" + i + "行", Toast.LENGTH_SHORT).show();
+                index = i+1;
+                Toast.makeText(Food_Stock_Act.this, "你点击了第" + index + "行", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -46,6 +49,12 @@ public class Food_Stock_Act extends AppCompatActivity{
     private void initlist() {
         food_list=objectDBHelper.getFoodInfo();
 
+    }
+
+    //获取当前list的id
+    public int getIndex()
+    {
+        return index;
     }
 
 }

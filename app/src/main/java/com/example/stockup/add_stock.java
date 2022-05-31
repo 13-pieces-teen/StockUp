@@ -644,8 +644,8 @@ public class add_stock extends AppCompatActivity {
     //添加基本物品信息
     public void addWhole(objectInfo OB)
     {
-        objectDBHelper = new ObjectDBHelper(add_stock.this, "objectManager.db", null,1);
-        SQLiteDatabase db = objectDBHelper.getReadableDatabase();
+        ObjectDBHelper objectDBHelper1 = new ObjectDBHelper(add_stock.this, "objectManager.db", null,1);
+        SQLiteDatabase db = objectDBHelper1.getReadableDatabase();
         ContentValues values = new ContentValues();
 
         values.put("OB_json","");
