@@ -67,7 +67,8 @@ public class doGet_json {
         String httpUrl=url+"?"+"barcode="+object_Json+"&app_id=olnqxyrmliporeq9&app_secret=c1U0d0lBMmhUM1VJYjlvOEo4SUVtQT09";
         String ob_name=doGet(httpUrl);
         ob_name=retName(ob_name);
-        return ob_name;
+        if(ob_name==null) return "暂未收录此商品";
+        else return ob_name;
     }
 
     public static String retName(String ob_name) {
@@ -76,6 +77,7 @@ public class doGet_json {
             JSONObject jsonObject=new JSONObject(ob_name);
             JSONObject jsonObject1=jsonObject.getJSONObject("data");
             name=jsonObject1.optString("goodsName","");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

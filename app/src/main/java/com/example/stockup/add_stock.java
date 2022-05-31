@@ -487,12 +487,22 @@ public class add_stock extends AppCompatActivity {
                         handleImageBeforeKitKat(data);      //  如果是在4.4以 下 系统的手机就调用该方法来处理图片
                     }
                 }
-                break;
                 //REQUEST_CODE为扫一扫的
             case REQUEST_CODE:
                 IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 if (intentResult != null) {
                     if (intentResult.getContents() == null) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String object_name = doGet_json.get_jsonname("6938803995169");
+                                Message retname = new Message();
+                                retname.what = 0;
+                                retname.obj = object_name;
+                                mhandler.sendMessage(retname);
+
+                            }
+                        }).start();
                         Toast.makeText(this, "扫码失败", Toast.LENGTH_SHORT).show();
                         ;
                     }
@@ -535,7 +545,8 @@ public class add_stock extends AppCompatActivity {
             super.handleMessage(msg);
             if(msg.what==0){
                 String ob_name=(String) msg.obj;
-                et_object_name.setText(ob_name);
+                if(ob_name=="暂未收录此商品") Toast.makeText(add_stock.this, ob_name, Toast.LENGTH_SHORT).show();
+                else et_object_name.setText(ob_name);
             }
         }
 

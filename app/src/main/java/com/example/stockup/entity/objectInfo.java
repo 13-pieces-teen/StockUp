@@ -15,8 +15,8 @@ public class objectInfo {
     public objectInfo() {
         super();
     }
-    public objectInfo(String OB_name, String OB_type, String OB_guarantee_day, String OB_after_date,
-                      String OB_produce_date, String OB_open_date,String OB_remarks, int OB_amount, int betweenDays) {
+    public objectInfo(String OB_name, String OB_type, String OB_guarantee_day,String OB_produce_date,
+                      String OB_after_date,String OB_open_date,String OB_remarks, int OB_amount, int betweenDays) {
         super();
         this.OB_name = OB_name;
         this.OB_type = OB_type;
