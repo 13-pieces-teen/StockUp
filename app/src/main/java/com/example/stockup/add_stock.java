@@ -467,7 +467,7 @@ public class add_stock extends AppCompatActivity {
                     try {
                         //  根据Uri找到这张照片的位置，将它解析成Bitmap对象，然后将把它设置到imageView中显示出来
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                        UriInfo = ""+imageUri;
+                        UriInfo = "" + imageUri;
                         index = "2";
                         iv_object_image.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
@@ -480,22 +480,26 @@ public class add_stock extends AppCompatActivity {
                  *          之所以这样做是是因为，Android 系统从4.4版本开始，选取相册图片不再返回图片真实的Uri了，而是一个封装过的Uri，因此
                  *          如果是4.4版本以上的手机就需要对这个Uri进行解析才行
                  */
-                if (resultCode == RESULT_OK){
-                    if (Build.VERSION.SDK_INT  >= 19){      //  如果是在4.4及以 上 系统的手机就调用该方法来处理图片
+                if (resultCode == RESULT_OK) {
+                    if (Build.VERSION.SDK_INT >= 19) {      //  如果是在4.4及以 上 系统的手机就调用该方法来处理图片
                         handleImageOnKitKat(data);
-                    }else{
+                    } else {
                         handleImageBeforeKitKat(data);      //  如果是在4.4以 下 系统的手机就调用该方法来处理图片
                     }
                 }
-                //REQUEST_CODE为扫一扫的
+                break;
+            //REQUEST_CODE为扫一扫的
             case REQUEST_CODE:
                 IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 if (intentResult != null) {
                     if (intentResult.getContents() == null) {
+                        Toast.makeText(this, "扫码失败", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String object_Json = intentResult.getContents();//返回值
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                String object_name = doGet_json.get_jsonname("6938803995169");
+                                String object_name = doGet_json.get_jsonname(object_Json);
                                 Message retname = new Message();
                                 retname.what = 0;
                                 retname.obj = object_name;
@@ -503,38 +507,12 @@ public class add_stock extends AppCompatActivity {
 
                             }
                         }).start();
-                        Toast.makeText(this, "扫码失败", Toast.LENGTH_SHORT).show();
-                        ;
                     }
 
-                } else {
-                    String object_Json = intentResult.getContents();//返回值
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            String object_name = doGet_json.get_jsonname(object_Json);
-                            Message retname = new Message();
-                            retname.what = 0;
-                            retname.obj = object_name;
-                            mhandler.sendMessage(retname);
-
-                        }
-                    }).start();
                 }
                 break;
-
             default:
                 break;
-        }
-
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (intentResult != null) {
-            if (intentResult.getContents() == null) {
-                Toast.makeText(this, "扫码失败", Toast.LENGTH_SHORT).show();
-            } else {
-                String result = intentResult.getContents();//返回值
-                Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-            }
         }
 
     }

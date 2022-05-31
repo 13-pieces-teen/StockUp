@@ -16,14 +16,18 @@ import com.example.stockup.entity.objectInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import ObjectDBHelper.ObjectDBHelper;
+
 public class Drug_Stock_Act extends AppCompatActivity {
     private ListView listView;
-    //食物列表数组
+    private ObjectDBHelper objectDBHelper;
     private List<objectInfo> drug_list = new ArrayList<objectInfo>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.com_activity_stock);
+
+        objectDBHelper = new ObjectDBHelper(this);//很重要，之前忘了实例化，会导致空指针
         listView = findViewById(R.id.listView);
         //数据库查询并添加到数组
         initlist();
@@ -40,7 +44,7 @@ public class Drug_Stock_Act extends AppCompatActivity {
     }
 
     private void initlist() {
-
+        drug_list=objectDBHelper.getDurgInfo();
     }
 
 }
