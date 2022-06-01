@@ -1,7 +1,9 @@
 package com.example.stockup.Stock_Activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,8 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.stockup.Adapter.ListViewAdapter;
+import com.example.stockup.MainActivity;
 import com.example.stockup.R;
 import com.example.stockup.entity.objectInfo;
+import com.example.stockup.update_stock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +45,14 @@ public class Food_Stock_Act extends AppCompatActivity{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 index = i+1;
                 Toast.makeText(Food_Stock_Act.this, "你点击了第" + index + "行", Toast.LENGTH_SHORT).show();
-
+                Bundle bundle = new Bundle();//用Bundle传递参数给下一个页面
+                bundle.putInt("ID", index);
+                bundle.putString("objType", "food");
+                Intent intent = new Intent();
+                intent.putExtras(bundle);
+                intent.setClass(Food_Stock_Act.this, update_stock.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
+                Log.i("listView", "食物列表跳转至更新界面");
+                startActivity(intent);
             }
         });
     }
@@ -51,10 +62,5 @@ public class Food_Stock_Act extends AppCompatActivity{
 
     }
 
-    //获取当前list的id
-    public int getIndex()
-    {
-        return index;
-    }
 
 }

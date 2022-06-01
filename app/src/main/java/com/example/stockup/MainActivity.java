@@ -40,19 +40,6 @@ public class MainActivity extends AppCompatActivity {
         intView();
 
 
-
-        btn_test = findViewById(R.id.btn_test);
-        btn_test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, update_stock.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
-                startActivity(intent);
-            }
-        });
-
-
-
         intData();
         adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         vp.setAdapter(adapter);

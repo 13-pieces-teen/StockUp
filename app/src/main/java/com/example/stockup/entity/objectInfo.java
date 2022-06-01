@@ -11,12 +11,16 @@ public class objectInfo {
     private int OB_amount;//物品数量
     private String OB_remarks;//物品备注
     private int betweenDays;//间隔天数
+    private String imageURL;//图片uri
+    private int remindDay;//提醒天数
 
     public objectInfo() {
         super();
     }
+
     public objectInfo(String OB_name, String OB_type, String OB_guarantee_day,String OB_produce_date
-                      , String OB_after_date, String OB_open_date,String OB_remarks, int OB_amount, int betweenDays) {
+                      , String OB_after_date, String OB_open_date,String OB_remarks, int OB_amount,
+                      int betweenDays,String imageURL, int remindDay) {
         super();
         this.OB_name = OB_name;
         this.OB_type = OB_type;
@@ -27,6 +31,40 @@ public class objectInfo {
         this.OB_remarks = OB_remarks;
         this.OB_amount = OB_amount;
         this.betweenDays = betweenDays;
+        this.imageURL = imageURL;
+        this.remindDay = remindDay;
+    }
+
+    public int getRemindDay() {
+        return remindDay;
+    }
+
+    public void setRemindDay(int remindDay) {
+        this.remindDay = remindDay;
+    }
+
+    @Override
+    public String toString() {
+        return "objectInfo{" +
+                "OB_name='" + OB_name + '\'' +
+                ", OB_type='" + OB_type + '\'' +
+                ", OB_guarantee_day='" + OB_guarantee_day + '\'' +
+                ", OB_produce_date='" + OB_produce_date + '\'' +
+                ", OB_after_date='" + OB_after_date + '\'' +
+                ", OB_open_date='" + OB_open_date + '\'' +
+                ", OB_amount=" + OB_amount +
+                ", OB_remarks='" + OB_remarks + '\'' +
+                ", betweenDays=" + betweenDays +
+                ", imageURL='" + imageURL + '\'' +
+                '}';
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getOB_name() {
@@ -101,18 +139,4 @@ public class objectInfo {
         this.betweenDays = betweenDays;
     }
 
-    @Override
-    public String toString() {
-        return "objectInfo{" +
-                "OB_name='" + OB_name + '\'' +
-                ", OB_type='" + OB_type + '\'' +
-                ", OB_guarantee_day='" + OB_guarantee_day + '\'' +
-                ", OB_produce_date='" + OB_produce_date + '\'' +
-                ", OB_after_date='" + OB_after_date + '\'' +
-                ", OB_open_date='" + OB_open_date + '\'' +
-                ", OB_amount=" + OB_amount +
-                ", OB_remarks='" + OB_remarks + '\'' +
-                ", betweenDays=" + betweenDays +
-                '}';
-    }
 }

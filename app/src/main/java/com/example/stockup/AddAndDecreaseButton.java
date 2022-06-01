@@ -13,8 +13,8 @@ import com.example.stockup.R;
 
 public class AddAndDecreaseButton extends LinearLayout
 {
-    public int amount = 1;     //数量
-
+    private int initAmount = 1;
+    public int amount = initAmount;     //数量
     private TextView etAmount;
     private Button btnDecrease;
     private Button btnIncrease;
@@ -32,6 +32,7 @@ public class AddAndDecreaseButton extends LinearLayout
         //设置‘-’号按键点击事件
         btnDecrease.setOnClickListener(new OnClickListener()
         {
+
             @Override
             public void onClick(View v)
             {
@@ -65,4 +66,11 @@ public class AddAndDecreaseButton extends LinearLayout
     {
         return amount;
     }
+
+    public void changeAmount(int amount1)
+    {
+        etAmount.setText(String.valueOf(amount1));
+        amount = amount1;
+    }
+
 }

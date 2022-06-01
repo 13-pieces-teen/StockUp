@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="411dp"
         android:layout_height="108dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,87 +28,100 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:background="@color/colorQianBlue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/list_image"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="241dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp">
 
-                <TextView
-                    android:id="@+id/list_Name"
-                    android:layout_width="173dp"
-                    android:layout_height="match_parent"
-                    android:text="TextView"
-                    android:textSize="13sp" />
+            <TextView
+                android:id="@+id/list_Name"
+                android:layout_width="102dp"
+                android:layout_height="32dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="4dp"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="52dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/数量" />
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="18dp"
+                android:layout_toEndOf="@+id/list_Name"
+                android:gravity="center"
+                android:text="数量:"
+                android:textStyle="bold"
+                android:textSize="20dp" />
 
-                <TextView
-                    android:id="@+id/list_Num"
-                    android:layout_width="103dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="TextView" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/list_Num"
+                android:layout_width="70dp"
+                android:layout_height="32dp"
+                android:layout_toEndOf="@+id/textView1"
+                android:background="@color/colorDeepBlue"
+                android:gravity="center"
+                android:text="个数"
+                android:textSize="18dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:orientation="horizontal">
+            <TextView
+                android:id="@+id/list_produceDate"
+                android:layout_width="120dp"
+                android:layout_height="32dp"
+                android:layout_below="@+id/list_Name"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="20dp" />
 
-                <TextView
-                    android:id="@+id/list_textName6"
-                    android:layout_width="111dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/生产日期" />
 
-                <TextView
-                    android:id="@+id/list_textName7"
-                    android:layout_width="111dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/过期日期" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/list_produceDate"
-                    android:layout_width="153dp"
-                    android:layout_height="match_parent"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/list_afterDate"
-                    android:layout_width="156dp"
-                    android:layout_height="match_parent"
-                    android:text="TextView" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/list_afterDate"
+                android:layout_width="120dp"
+                android:layout_height="32dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="30dp"
+                android:layout_toEndOf="@+id/list_produceDate"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="20dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:max="100"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="223dp"
+                android:layout_height="24dp"
+                android:layout_below="@+id/list_produceDate"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="10dp"
+                android:max="100" />
+
+        </RelativeLayout>
+
+            <TextView
+                android:id="@+id/list_between"
+                android:layout_width="55dp"
+                android:layout_height="43dp"
+                android:layout_gravity="center"
+                android:background="#41FFEB3B"
+                android:gravity="center"
+                android:textSize="16dp" />
 
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

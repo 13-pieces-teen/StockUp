@@ -90,6 +90,7 @@ public class add_stock extends AppCompatActivity {
     private String date;
     private String dateType;//年，月，日
 
+    private int remindDay;//提醒天数
     private int dayFlag;//默认选天
     private int guaranteeNumber;//保质天数
     private int objectAmount;//物品数量
@@ -123,8 +124,8 @@ public class add_stock extends AppCompatActivity {
 
                 betweenDay();
                 //计算离到期还有几天
-                int calDays = betweenDays * progress / 100;
-                String ss = String.format("%d天",calDays);
+                remindDay = betweenDays * progress / 100;
+                String ss = String.format("%d天",remindDay);
                 tv_days.setText(ss);
             }
 
@@ -450,7 +451,7 @@ public class add_stock extends AppCompatActivity {
         String objectRemark = et_remarks.getText().toString().trim();
 
         objectInfo object = new objectInfo(objectName, objectType, objectGuarantee, objectProduceDate,
-                objectAfterDate, objectOpenDate, objectRemark, objectAmount, betweenDays);
+                objectAfterDate, objectOpenDate, objectRemark, objectAmount, betweenDays, UriInfo, remindDay);
         return object;
 
     }

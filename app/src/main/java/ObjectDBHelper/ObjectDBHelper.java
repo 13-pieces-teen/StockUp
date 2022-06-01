@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.stockup.Adapter.ListViewAdapter;
 import com.example.stockup.entity.objectInfo;
 import com.example.stockup.entity.wholeObject;
 
@@ -46,7 +47,9 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
             ", OB_amount integer" +
             ",OB_guarantee_day text" +
             ", OB_remarks text" +
-            ", OB_between integer)";
+            ", OB_between integer" +
+            ", OB_URL text" +
+            ", OB_remindDay int)";
 
     //药品表
     private static final String CREATE_TABLE_DRUG = "create table " + TABLE_DURG + " " +
@@ -59,7 +62,9 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
             ", OB_amount integer" +
             ",OB_guarantee_day text" +
             ", OB_remarks text" +
-            ", OB_between integer)";
+            ", OB_between integer" +
+            ", OB_URL text" +
+            ", OB_remindDay integer)";
 
     //化妆品表
     private static final String CREATE_TABLE_SUPPLIES = "create table " + TABLE_SUPPLIES + " " +
@@ -72,7 +77,9 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
             ", OB_amount integer" +
             ",OB_guarantee_day text" +
             ", OB_remarks text" +
-            ", OB_between integer)";
+            ", OB_between integer" +
+            ", OB_URL text" +
+            ", OB_remindDay integer)";
 
     //物资表
     private static final String CREATE_TABLE_COSMETICS = "create table " + TABLE_COSMETICS + " " +
@@ -85,18 +92,20 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
             ", OB_amount integer" +
             ",OB_guarantee_day text" +
             ", OB_remarks text" +
-            ", OB_between integer)";
+            ", OB_between integer" +
+            ", OB_URL text" +
+            ", OB_remindDay integer)";
 
     public ObjectDBHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
         db = this.getWritableDatabase();
     }
 
+
     public ObjectDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DB_NAME, null, VERSION);
         db = this.getWritableDatabase();
     }
-
 
 
     //onCreate仅在构建数据库时调用一次，若对数据库进行修改则需要删表重试
@@ -138,6 +147,8 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_guarantee_day",OB.getOB_guarantee_day());
         values.put("OB_remarks", OB.getOB_remarks());
         values.put("OB_between", OB.getBetweenDays());
+        values.put("OB_URL",OB.getImageURL());
+        values.put("OB_remindDay",OB.getRemindDay());
 
         return  db.insert(TABLE_FOOD, null, values);
     }
@@ -157,6 +168,8 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_amount", OB.getOB_amount());
         values.put("OB_remarks", OB.getOB_remarks());
         values.put("OB_between", OB.getBetweenDays());
+        values.put("OB_URL",OB.getImageURL());
+        values.put("OB_remindDay",OB.getRemindDay());
 
         return  db.insert(TABLE_DURG, null, values);
     }
@@ -176,6 +189,8 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_amount", OB.getOB_amount());
         values.put("OB_remarks", OB.getOB_remarks());
         values.put("OB_between", OB.getBetweenDays());
+        values.put("OB_URL",OB.getImageURL());
+        values.put("OB_remindDay",OB.getRemindDay());
 
         return  db.insert(TABLE_COSMETICS, null, values);
     }
@@ -195,6 +210,8 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_guarantee_day",OB.getOB_guarantee_day());
         values.put("OB_remarks", OB.getOB_remarks());
         values.put("OB_between", OB.getBetweenDays());
+        values.put("OB_URL",OB.getImageURL());
+        values.put("OB_remindDay",OB.getRemindDay());
 
         return  db.insert(TABLE_SUPPLIES, null, values);
     }
@@ -222,6 +239,8 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
                 obj1.setOB_guarantee_day(cursor.getString(7));
                 obj1.setOB_remarks(cursor.getString(8));
                 obj1.setBetweenDays(cursor.getInt(9));
+                obj1.setImageURL(cursor.getString(10));
+                obj1.setRemindDay(cursor.getInt(11));
                 infos.add(obj1);
             }
             cursor.close();
@@ -248,6 +267,8 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
                 obj1.setOB_guarantee_day(cursor.getString(7));
                 obj1.setOB_remarks(cursor.getString(8));
                 obj1.setBetweenDays(cursor.getInt(9));
+                obj1.setImageURL(cursor.getString(10));
+                obj1.setRemindDay(cursor.getInt(11));
                 infos.add(obj1);
             }
             cursor.close();
@@ -273,6 +294,8 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
                 obj1.setOB_guarantee_day(cursor.getString(7));
                 obj1.setOB_remarks(cursor.getString(8));
                 obj1.setBetweenDays(cursor.getInt(9));
+                obj1.setImageURL(cursor.getString(10));
+                obj1.setRemindDay(cursor.getInt(11));
                 infos.add(obj1);
             }
             cursor.close();
@@ -298,6 +321,8 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
                 obj1.setOB_guarantee_day(cursor.getString(7));
                 obj1.setOB_remarks(cursor.getString(8));
                 obj1.setBetweenDays(cursor.getInt(9));
+                obj1.setImageURL(cursor.getString(10));
+                obj1.setRemindDay(cursor.getInt(11));
                 infos.add(obj1);
             }
             cursor.close();
@@ -324,8 +349,8 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
     }
 
 
-    //通过物品名称在总表查询信息
-    public wholeObject searchObject(String name) {
+    //通过物品名称在总表查询图片uri
+    public String searchObject(String name) {
         Cursor cursor = db.query(TABLE_WHOLE, null, "OB_name" + "=?", new String[]{name}, null, null, null);
         wholeObject who1 = new wholeObject();
         if (cursor.moveToFirst()) {
@@ -334,8 +359,106 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
             who1.setOB_guarantee_day(cursor.getString(3));
             who1.setOB_uri(cursor.getString(4));
         }
-        return who1;
+        return who1.getOB_uri();
     }
+
+
+    //通过ID查询食物表
+    public objectInfo getFoodFromID(int _id) {
+        //"OB_name","OB_type","OB_produce_date","OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"
+        objectInfo obj1 = new objectInfo();
+        String s_id = String.valueOf(_id);
+        //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
+        Cursor cursor = db.query(TABLE_FOOD, null, "id" + "=?", new String[]{s_id}, null, null, null, null);
+        if (cursor.moveToFirst()){
+            obj1 = new objectInfo();
+            obj1.setOB_name(cursor.getString(1));
+            obj1.setOB_type(cursor.getString(2));
+            obj1.setOB_produce_date(cursor.getString(3));
+            obj1.setOB_after_date(cursor.getString(4));
+            obj1.setOB_open_date(cursor.getString(5));
+            obj1.setOB_amount(cursor.getInt(6));
+            obj1.setOB_guarantee_day(cursor.getString(7));
+            obj1.setOB_remarks(cursor.getString(8));
+            obj1.setBetweenDays(cursor.getInt(9));
+            obj1.setImageURL(cursor.getString(10));
+            obj1.setRemindDay(cursor.getInt(11));
+        }
+        return obj1;
+    }
+
+    //通过ID查询药品表
+    public objectInfo getDurgFromID(int _id) {
+        //"OB_name","OB_type","OB_produce_date","OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"
+        objectInfo obj1 = new objectInfo();
+        String s_id = String.valueOf(_id);
+        //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
+        Cursor cursor = db.query(TABLE_DURG, null, "id" + "=?", new String[]{s_id}, null, null, null, null);
+        if (cursor.moveToFirst()){
+            obj1 = new objectInfo();
+            obj1.setOB_name(cursor.getString(1));
+            obj1.setOB_type(cursor.getString(2));
+            obj1.setOB_produce_date(cursor.getString(3));
+            obj1.setOB_after_date(cursor.getString(4));
+            obj1.setOB_open_date(cursor.getString(5));
+            obj1.setOB_amount(cursor.getInt(6));
+            obj1.setOB_guarantee_day(cursor.getString(7));
+            obj1.setOB_remarks(cursor.getString(8));
+            obj1.setBetweenDays(cursor.getInt(9));
+            obj1.setImageURL(cursor.getString(10));
+            obj1.setRemindDay(cursor.getInt(11));
+        }
+        return obj1;
+    }
+
+    //通过ID查询化妆品表
+    public objectInfo getCosmFromID(int _id) {
+        //"OB_name","OB_type","OB_produce_date","OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"
+        objectInfo obj1 = new objectInfo();
+        String s_id = String.valueOf(_id);
+        //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
+        Cursor cursor = db.query(TABLE_COSMETICS, null, "id" + "=?", new String[]{s_id}, null, null, null, null);
+        if (cursor.moveToFirst()){
+            obj1 = new objectInfo();
+            obj1.setOB_name(cursor.getString(1));
+            obj1.setOB_type(cursor.getString(2));
+            obj1.setOB_produce_date(cursor.getString(3));
+            obj1.setOB_after_date(cursor.getString(4));
+            obj1.setOB_open_date(cursor.getString(5));
+            obj1.setOB_amount(cursor.getInt(6));
+            obj1.setOB_guarantee_day(cursor.getString(7));
+            obj1.setOB_remarks(cursor.getString(8));
+            obj1.setBetweenDays(cursor.getInt(9));
+            obj1.setImageURL(cursor.getString(10));
+            obj1.setRemindDay(cursor.getInt(11));
+        }
+        return obj1;
+    }
+
+    //通过ID查询物资表
+    public objectInfo getSuppliesFromID(int _id) {
+        //"OB_name","OB_type","OB_produce_date","OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"
+        objectInfo obj1 = new objectInfo();
+        String s_id = String.valueOf(_id);
+        //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
+        Cursor cursor = db.query(TABLE_SUPPLIES, null, "id" + "=?", new String[]{s_id}, null, null, null, null);
+        if (cursor.moveToFirst()){
+            obj1 = new objectInfo();
+            obj1.setOB_name(cursor.getString(1));
+            obj1.setOB_type(cursor.getString(2));
+            obj1.setOB_produce_date(cursor.getString(3));
+            obj1.setOB_after_date(cursor.getString(4));
+            obj1.setOB_open_date(cursor.getString(5));
+            obj1.setOB_amount(cursor.getInt(6));
+            obj1.setOB_guarantee_day(cursor.getString(7));
+            obj1.setOB_remarks(cursor.getString(8));
+            obj1.setBetweenDays(cursor.getInt(9));
+            obj1.setImageURL(cursor.getString(10));
+            obj1.setRemindDay(cursor.getInt(11));
+        }
+        return obj1;
+    }
+
 
     //删除某食品
     public void deleteFoodWithID(int ID) {
@@ -374,6 +497,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_guarantee_day",food.getOB_guarantee_day());
         values.put("OB_remarks", food.getOB_remarks());
         values.put("OB_between", food.getBetweenDays());
+        values.put("OB_remindDay", food.getRemindDay());
 
         System.out.println("更新食物成功！！！");
         return db.update(TABLE_FOOD, values, "id" + "=?", new String[]{String.valueOf(id)});
@@ -392,6 +516,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_guarantee_day",durg.getOB_guarantee_day());
         values.put("OB_remarks", durg.getOB_remarks());
         values.put("OB_between", durg.getBetweenDays());
+        values.put("OB_remindDay", durg.getRemindDay());
 
         System.out.println("更新药物成功！！！");
         return db.update(TABLE_DURG, values, "id" + "=?", new String[]{String.valueOf(id)});
@@ -410,6 +535,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_guarantee_day",cosms.getOB_guarantee_day());
         values.put("OB_remarks", cosms.getOB_remarks());
         values.put("OB_between", cosms.getBetweenDays());
+        values.put("OB_remindDay", cosms.getRemindDay());
 
         System.out.println("更新化妆品成功！！！");
         return db.update(TABLE_DURG, values, "id" + "=?", new String[]{String.valueOf(id)});
@@ -428,6 +554,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         values.put("OB_guarantee_day",supp.getOB_guarantee_day());
         values.put("OB_remarks", supp.getOB_remarks());
         values.put("OB_between", supp.getBetweenDays());
+        values.put("OB_remindDay", supp.getRemindDay());
 
         System.out.println("更新物资成功！！！");
         return db.update(TABLE_DURG, values, "id" + "=?", new String[]{String.valueOf(id)});

@@ -3,6 +3,9 @@ package com.example.stockup.Adapter;
 import static java.lang.Math.abs;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +17,20 @@ import android.widget.TextView;
 
 import com.example.stockup.R;
 import com.example.stockup.entity.objectInfo;
+import com.example.stockup.entity.wholeObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import ObjectDBHelper.ObjectDBHelper;
 
 public class ListViewAdapter extends ArrayAdapter{
 
-
-
     private final int resourceId;
+    private int indexID;//物品所对应id
+
 
     public ListViewAdapter(Context context, int textViewResourceId, List<objectInfo> objects) {
         super(context, textViewResourceId, objects);
@@ -33,7 +38,8 @@ public class ListViewAdapter extends ArrayAdapter{
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        objectInfo items = (objectInfo) getItem(position); // 获取当前项实例
+        objectInfo items = (objectInfo) getItem(position); // 获取当前项实例,position
+        indexID = position + 1;
         View view = LayoutInflater.from(getContext()).inflate(resourceId, null);//实例化一个对象
 
         //获取该布局内的控件
@@ -42,15 +48,20 @@ public class ListViewAdapter extends ArrayAdapter{
         TextView list_Num= (TextView) view.findViewById(R.id.list_Num);
         TextView list_produceDate = (TextView) view.findViewById(R.id.list_produceDate);
         TextView list_afterDate = (TextView) view.findViewById(R.id.list_afterDate);
+        TextView list_between = (TextView) view.findViewById(R.id.list_between);
         ProgressBar progressBar=(ProgressBar) view.findViewById(R.id.progressBar);
 
 
-        //list_Image.setImageResource(items.get);
+        String str= items.getImageURL();
+        Uri uri = Uri.parse((String) str);
+
+        list_Image.setImageURI(uri);
         list_Name.setText(items.getOB_name());
         list_Num.setText(Integer.toString(items.getOB_amount())+" 个");
         list_produceDate.setText(items.getOB_produce_date());
         list_afterDate.setText(items.getOB_after_date());
         int between_days=items.getBetweenDays();
+        list_between.setText(items.getOB_guarantee_day());
        // 对于东西保质期进行100等分；progressbar
         try {
             int runDay=progressBar.getProgress();
@@ -62,6 +73,10 @@ public class ListViewAdapter extends ArrayAdapter{
         }
         return view;
     }
+
+
+
+
     //输出离生产日期过去多久
     public int StringtoData(String str) throws ParseException {
         int diffday;//天数差

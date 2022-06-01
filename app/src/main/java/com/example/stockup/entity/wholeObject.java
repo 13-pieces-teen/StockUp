@@ -10,7 +10,7 @@ public class wholeObject {
     public wholeObject() {
         super();
     }
-    public wholeObject(int ID, String OB_name, String OB_guarantee_day, String OB_json, String OB_uri) {
+    public wholeObject(int ID, String OB_json, String OB_name, String OB_guarantee_day, String OB_uri) {
         super();
         this.ID = ID;
         this.OB_name = OB_name;

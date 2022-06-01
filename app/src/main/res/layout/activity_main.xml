@@ -52,11 +52,5 @@
         app:menu="@menu/bottom_menu">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <Button
-        android:id="@+id/btn_test"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        ></Button>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
