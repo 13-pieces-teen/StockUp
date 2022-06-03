@@ -30,15 +30,14 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
     private FloatingActionButton fab_add;
     List<Fragment> fragmentList;
-    private Button btn_test;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        intView();
 
+        intView();
 
         intData();
         adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragmentList);
@@ -115,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
 
 
 

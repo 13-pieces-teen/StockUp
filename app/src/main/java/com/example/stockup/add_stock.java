@@ -517,6 +517,7 @@ public class add_stock extends AppCompatActivity {
         }
 
     }
+
     //自动补全名称
     private Handler mhandler =new Handler(Looper.myLooper()){
         @Override
@@ -642,7 +643,7 @@ public class add_stock extends AppCompatActivity {
         Calendar a=Calendar.getInstance();
         Calendar b=Calendar.getInstance();
         a.set(nowYear,nowMonth,nowDay);
-        b.set(nextYear,nextMonth,nextDay);;
+        b.set(nextYear,nextMonth,nextDay);
         //计算此日期是一年中的哪一天
         int day1=a.get(Calendar.DAY_OF_YEAR);
         int day2=b.get(Calendar.DAY_OF_YEAR);

@@ -75,8 +75,6 @@ public class ListViewAdapter extends ArrayAdapter{
     }
 
 
-
-
     //输出离生产日期过去多久
     public int StringtoData(String str) throws ParseException {
         int diffday;//天数差

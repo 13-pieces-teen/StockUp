@@ -28,7 +28,7 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/arrow_back_black"></Button>
+                android:background="@drawable/arrow_back_black"/>
 
             <TextView
                 android:layout_width="168dp"
@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:text="物品详情"
                 android:textColor="@color/black"
-                android:textSize="30dp"></TextView>
+                android:textSize="30dp"/>
 
 <!--            <Button-->
 <!--                android:id="@+id/btn_edit"-->
@@ -77,7 +77,7 @@
                         android:gravity="center_vertical"
                         android:text="商品详情"
                         android:textSize="25dp"
-                        android:textStyle="bold"></TextView>
+                        android:textStyle="bold"/>
 
                     <ImageView
                         android:id="@+id/iv_object_image"
@@ -87,7 +87,8 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="9dp"
-                        android:background="@drawable/ic_baseline_insert_photo"></ImageView>
+                        android:background="@drawable/ic_baseline_insert_photo"
+                        />
 
 
                     <RelativeLayout
@@ -106,9 +107,9 @@
                             android:gravity="center_vertical"
                             android:text="生产日期:"
                             android:layout_marginLeft="5dp"
-                            android:textSize="20dp"></TextView>
+                            android:textSize="20dp"/>
 
-                        <EditText
+                        <TextView
                             android:id="@+id/et_produce_date"
                             android:layout_width="100dp"
                             android:layout_height="30dp"
@@ -117,7 +118,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_toEndOf="@+id/tv_produceDate"
                             android:background="@drawable/biankuang"
-                            android:gravity="right"></EditText>
+                            android:gravity="right"/>
 
                         <TextView
                             android:id="@+id/tv_baozhi"
@@ -128,7 +129,7 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center_vertical"
                             android:text="保质期:"
-                            android:textSize="20dp"></TextView>
+                            android:textSize="20dp"/>
 
 
                         <TextView
@@ -141,7 +142,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="16dp"
                             android:layout_toEndOf="@+id/tv_baozhi"
-                            android:gravity="right"></TextView>
+                            android:gravity="right"/>
 
                         <TextView
                             android:id="@+id/tv_daoqi"
@@ -152,7 +153,7 @@
                             android:gravity="center_vertical"
                             android:text="到期日期:"
                             android:layout_marginLeft="5dp"
-                            android:textSize="20dp"></TextView>
+                            android:textSize="20dp"/>
 
                         <TextView
                             android:id="@+id/tv_after_date"
@@ -164,7 +165,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="15dp"
                             android:layout_toEndOf="@+id/tv_daoqi"
-                            android:gravity="right"></TextView>
+                            android:gravity="right"/>
 
                         <TextView
                             android:id="@+id/tv_remarks"
@@ -175,7 +176,7 @@
                             android:gravity="center_vertical"
                             android:text="备注:"
                             android:layout_marginLeft="5dp"
-                            android:textSize="20dp"></TextView>
+                            android:textSize="20dp"/>
 
                         <EditText
                             android:id="@+id/et_remarks"
@@ -189,8 +190,7 @@
                             android:layout_toEndOf="@+id/tv_remarks"
                             android:background="@drawable/biankuang"
                             android:gravity="right"
-                            android:hint="输入备注"></EditText>
-
+                            android:hint="输入备注"/>
                     </RelativeLayout>
 
                 </RelativeLayout>
@@ -213,7 +213,7 @@
                         android:gravity="center_vertical"
                         android:text="提醒时间设置"
                         android:textSize="25dp"
-                        android:textStyle="bold"></TextView>
+                        android:textStyle="bold"/>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -227,7 +227,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginBottom="5dp"
                             android:text="提醒时间设置"
-                            android:textSize="18dp"></TextView>
+                            android:textSize="18dp"/>
 
                         <TextView
                             android:id="@+id/tv_percent"
@@ -239,7 +239,7 @@
                             android:layout_toEndOf="@+id/tv_1"
                             android:text="(50%)"
                             android:textColor="@color/green_700"
-                            android:textSize="18dp"></TextView>
+                            android:textSize="18dp"/>
 
 
                         <TextView
@@ -249,7 +249,7 @@
                             android:layout_marginStart="0dp"
                             android:layout_toEndOf="@+id/tv_percent"
                             android:text=": 离到期 "
-                            android:textSize="18dp"></TextView>
+                            android:textSize="18dp"/>
 
                         <TextView
                             android:id="@+id/tv_days"
@@ -258,7 +258,7 @@
                             android:layout_toEndOf="@+id/tv_2"
                             android:text="xx天"
                             android:textSize="18dp"
-                            android:textStyle="bold"></TextView>
+                            android:textStyle="bold"/>
 
                         <SeekBar
                             android:id="@+id/sb_remind"
@@ -267,7 +267,7 @@
                             android:layout_alignParentTop="true"
                             android:layout_marginTop="31dp"
                             android:max="100"
-                            android:progress="50"></SeekBar>
+                            android:progress="50"/>
 
                         <TextView
                             android:id="@+id/tv_0percent"
@@ -279,7 +279,7 @@
                             android:layout_marginStart="17dp"
                             android:layout_marginTop="1dp"
                             android:layout_marginEnd="356dp"
-                            android:text="0%"></TextView>
+                            android:text="0%"/>
 
                         <TextView
                             android:id="@+id/tv_100percent"
@@ -290,7 +290,7 @@
                             android:layout_marginStart="17dp"
                             android:layout_marginTop="0dp"
                             android:layout_marginEnd="15dp"
-                            android:text="100%"></TextView>
+                            android:text="100%"/>
                     </RelativeLayout>
 
                     <TextView
@@ -301,7 +301,7 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/开封日期"
                         android:textSize="23dp"
-                        android:textStyle="bold"></TextView>
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/et_open_date"
@@ -315,7 +315,7 @@
                         android:focusable="false"
                         android:hint="点击选择日期"
                         android:inputType="date"
-                        android:paddingLeft="20dip"></EditText>
+                        android:paddingLeft="20dip"/>
 
                 </LinearLayout>
 
@@ -335,7 +335,7 @@
                     android:text="产品数量"
                     android:drawableLeft="@drawable/add_shopping_cart"
                     android:textSize="25dp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold"/>
 
 
                 <com.example.stockup.AddAndDecreaseButton
@@ -344,7 +344,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="70dp"
                     android:layout_centerInParent="true"
-                    android:layout_gravity="center"></com.example.stockup.AddAndDecreaseButton>
+                    android:layout_gravity="center"/>
 
                 </LinearLayout>
 
@@ -365,7 +365,7 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                ></Button>
+                />
 
             <Button
                 android:id="@+id/btn_save"
@@ -373,7 +373,7 @@
                 android:layout_width="250dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                ></Button>
+                />
 
         </LinearLayout>
 

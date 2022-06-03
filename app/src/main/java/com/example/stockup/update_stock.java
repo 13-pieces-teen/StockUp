@@ -1,6 +1,10 @@
 package com.example.stockup;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,11 +36,12 @@ public class update_stock extends AppCompatActivity {
     private Button btn_save;//保存修改
     private AddAndDecreaseButton btn_amount;
     private SeekBar sb_remind;
-    private EditText et_produce_date;
+
     private EditText et_remarks;
     private EditText et_open_date;
 
     private ImageView iv_object_image;
+    private TextView tv_produce_date;
     private TextView tv_days;
     private TextView tv_guarantee;
     private TextView tv_after_date;
@@ -46,6 +51,8 @@ public class update_stock extends AppCompatActivity {
     private String objType;
     private int betweenDays;
     private String text;
+    private objectInfo obj1 = new objectInfo();
+    private int remindDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,8 @@ public class update_stock extends AppCompatActivity {
 
         initView();
         getAllInfoSet();
+        newBetweenDay();//更新间隔天数
+        timesUp();//到了提醒天数，则发送提醒
 
         //返回到list的界面(好像不太对劲,需要调整)
         btn_return.setOnClickListener(new View.OnClickListener() {
@@ -73,12 +82,13 @@ public class update_stock extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //将seekBar的进度设置在textView上
-                String ww = String.format("(%d%%)", progress);
+                String ww = String.format("(%d%%)", 100*remindDay/betweenDays);
                 tv_percent.setText(ww);
 
                 //计算离到期还有几天
-                int calDays = betweenDays * progress / 100;
-                String ss = String.format("%d天",calDays);
+                remindDay = betweenDays * progress / 100;
+
+                String ss = String.format("%d天",remindDay);
                 tv_days.setText(ss);
             }
 
@@ -93,6 +103,7 @@ public class update_stock extends AppCompatActivity {
             }
         });
 
+        //删除按钮
         btn_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +111,14 @@ public class update_stock extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(update_stock.this, MainActivity.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
                 startActivity(intent);
+            }
+        });
+
+        //更新按钮
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateFromID();
             }
         });
 
@@ -134,11 +153,10 @@ public class update_stock extends AppCompatActivity {
     //如果传过来是food类别
     private void isFoodType()
     {
-        objectInfo obj1 = new objectInfo();
         obj1 = DBHelper.getFoodFromID(ID);
         Uri uri = Uri.parse((String) obj1.getImageURL());
         iv_object_image.setImageURI(uri);
-        et_produce_date.setText(obj1.getOB_produce_date());
+        tv_produce_date.setText(obj1.getOB_produce_date());
         tv_after_date.setText(obj1.getOB_after_date());
         tv_guarantee.setText(obj1.getOB_guarantee_day());
         betweenDays = obj1.getBetweenDays();
@@ -151,11 +169,10 @@ public class update_stock extends AppCompatActivity {
     //如果传过来是durg类别
     private void isDurgType()
     {
-        objectInfo obj1 = new objectInfo();
         obj1 = DBHelper.getDurgFromID(ID);
         Uri uri = Uri.parse((String) obj1.getImageURL());
         iv_object_image.setImageURI(uri);
-        et_produce_date.setText(obj1.getOB_produce_date());
+        tv_produce_date.setText(obj1.getOB_produce_date());
         tv_after_date.setText(obj1.getOB_after_date());
         tv_guarantee.setText(obj1.getOB_guarantee_day());
         betweenDays = obj1.getBetweenDays();
@@ -168,11 +185,10 @@ public class update_stock extends AppCompatActivity {
     //如果传过来是cosmetics类别
     private void isCosmType()
     {
-        objectInfo obj1 = new objectInfo();
         obj1 = DBHelper.getCosmFromID(ID);
         Uri uri = Uri.parse((String) obj1.getImageURL());
         iv_object_image.setImageURI(uri);
-        et_produce_date.setText(obj1.getOB_produce_date());
+        tv_produce_date.setText(obj1.getOB_produce_date());
         tv_after_date.setText(obj1.getOB_after_date());
         tv_guarantee.setText(obj1.getOB_guarantee_day());
         betweenDays = obj1.getBetweenDays();
@@ -185,11 +201,10 @@ public class update_stock extends AppCompatActivity {
     //如果传过来是supplies类别
     private void isSuppliesType()
     {
-        objectInfo obj1 = new objectInfo();
         obj1 = DBHelper.getSuppliesFromID(ID);
         Uri uri = Uri.parse((String) obj1.getImageURL());
         iv_object_image.setImageURI(uri);
-        et_produce_date.setText(obj1.getOB_produce_date());
+        tv_produce_date.setText(obj1.getOB_produce_date());
         tv_after_date.setText(obj1.getOB_after_date());
         tv_guarantee.setText(obj1.getOB_guarantee_day());
         betweenDays = obj1.getBetweenDays();
@@ -231,18 +246,20 @@ public class update_stock extends AppCompatActivity {
 
     private objectInfo updateInfo()
     {
-        objectInfo obj1 = new objectInfo();
-
-
-
-        return obj1;
+        objectInfo obj = new objectInfo();
+        obj = obj1;
+        obj.setOB_remarks(et_remarks.getText().toString().trim());
+        obj.setOB_open_date(et_open_date.getText().toString().trim());
+        obj.setOB_amount(btn_amount.amount);
+        obj.setRemindDay(remindDay);
+        obj.setBetweenDays(betweenDays);
+        return obj;
     }
 
 
     //通过ID更新
     private void updateFromID()
     {
-        objectInfo obj1 = new objectInfo();
         obj1 = updateInfo();
         switch (objType){
             case "food":
@@ -270,8 +287,6 @@ public class update_stock extends AppCompatActivity {
         }
     }
 
-
-
     private void initView() {
         btn_return = findViewById(R.id.btn_return);
         btn_save = findViewById(R.id.btn_save);
@@ -279,7 +294,7 @@ public class update_stock extends AppCompatActivity {
         btn_amount = findViewById(R.id.btn_amount);
 
         et_open_date = findViewById(R.id.et_open_date);
-        et_produce_date = findViewById(R.id.et_produce_date);
+        tv_produce_date = findViewById(R.id.et_produce_date);
         et_remarks = findViewById(R.id.et_remarks);
         tv_days = findViewById(R.id.tv_days);
         tv_after_date = findViewById(R.id.tv_after_date);
@@ -288,4 +303,82 @@ public class update_stock extends AppCompatActivity {
         iv_object_image =findViewById(R.id.iv_object_image);
         sb_remind = findViewById(R.id.sb_remind);
     }
+
+
+    public Date getDate(String str) {
+        try {
+            java.text.SimpleDateFormat formatter = new SimpleDateFormat(
+                    "yyyy-MM-dd");
+            Date date = formatter.parse(str);
+            return date;
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return null;
+
+
+    }
+
+    //betweenDay随系统时间减少
+    private void newBetweenDay()
+    {
+        Calendar calendar = Calendar.getInstance();//系统时间
+        Date afterDate = getDate(obj1.getOB_after_date());
+
+        Calendar after=Calendar.getInstance();
+        after.setTime(afterDate);
+
+        //计算此日期是一年中的哪一天
+        int day1 = after.get(Calendar.DAY_OF_YEAR);
+        int day2 = calendar.get(Calendar.DAY_OF_YEAR);
+
+        int timeDiffer = day1 - day2;
+        betweenDays = timeDiffer;
+    }
+
+    //如果现在时间-生产日期 >= remindDays 则弹出通知
+    public void timesUp()
+    {
+        Calendar calendar = Calendar.getInstance();//系统时间
+        Date produceDate = getDate(obj1.getOB_produce_date());
+
+        Calendar produce = Calendar.getInstance();
+        produce.setTime(produceDate);
+
+        //计算此日期是一年中的哪一天
+        int day1 = produce.get(Calendar.DAY_OF_YEAR);
+        int day2 = calendar.get(Calendar.DAY_OF_YEAR);
+        int dayDiff = day1 - day2;
+        if (dayDiff == remindDay)
+        {
+            notificationSet();
+        }
+    }
+
+    private String title = "来自囤货货app的过期提醒";
+    private String notificationText = "您的物品：" +obj1.getOB_name() + " 距离快要过期还剩" + obj1.getRemindDay() + "天了" + "请注意使用";
+
+    /**
+     * 普通通知(涵盖大部分方法,页面跳转)
+     */
+    public void notificationSet(){
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setSmallIcon(R.drawable.ic_baseline_access_alarm_24);
+        builder.setContentTitle(title);
+        builder.setContentText(notificationText);
+        builder.setTicker("收到一条来自囤货货的过期提醒！");
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_pan_tool_24));
+        builder.setContentInfo("附加消息");
+        builder.setDefaults(Notification.DEFAULT_ALL);//全部效果展示(震动，铃声，呼吸灯)
+        //点击页面跳转
+        Intent intent = new Intent(this,MainActivity.class);
+        PendingIntent activity = PendingIntent.getActivity(this, 100, intent, PendingIntent.FLAG_ONE_SHOT);
+        builder.setContentIntent(activity);
+        //悬浮显示
+        builder.setFullScreenIntent(activity,true);
+        manager.notify(1,builder.build());
+    }
+
+
 }
