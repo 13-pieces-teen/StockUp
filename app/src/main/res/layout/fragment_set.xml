@@ -4,22 +4,129 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment_menu.SetFragment">
+    tools:context=".fragment_menu.SetFragment"
+    android:background="#25CDCFCB">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="167dp"
-            android:layout_height="151dp"
-            android:text="设置"
-            android:textSize="50sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="387dp"
+            android:layout_height="533dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="12dp"
+            tools:layout_editor_absoluteY="16dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="396dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="用户设置"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.466"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.023" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/im_head"
+                    android:layout_width="87dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_baseline_person_24" />
+
+                <TextView
+                    android:layout_width="151dp"
+                    android:layout_height="44dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="135dp"
+                    android:layout_toEndOf="@+id/im_head"
+                    android:text="加入囤货货"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_登陆"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="150dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_toEndOf="@+id/im_head"
+                    android:text="登录或注册账号"
+                    android:textColor="@color/grey"
+                    android:textSize="18dp" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:text="关于我们"
+                android:textColor="#909789"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/tv_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_edit_24"
+                android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="意见与反馈"
+                android:textColor="@color/black"
+                android:textSize="28dp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#aa000000" />
+
+            <TextView
+                android:id="@+id/tv_group"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_group_24"
+                android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:text="开发人员"
+                android:textColor="@color/black"
+                android:textSize="28dp" />
+
+            <TextView
+                android:id="@+id/tv_egg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

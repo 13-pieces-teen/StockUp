@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         intView();
-
         intData();
         adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         vp.setAdapter(adapter);
