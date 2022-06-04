@@ -21,11 +21,6 @@ import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
 
-    Calendar c = Calendar.getInstance();
-    int day = c.get(Calendar.DAY_OF_MONTH);
-    int month = c.get(Calendar.MONTH);
-    int year = c.get(Calendar.YEAR);
-    String date = year + "年" + (month+1) + "月" + day+"日";
 
     TextView view_Data;
     ImageView bnt_food,bnt_supplies,bnt_cosmetics,bnt_drug;
@@ -55,6 +50,11 @@ public class HomeFragment extends Fragment {
         super.onStart();
         initData();
         //日期显示
+        Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int month = c.get(Calendar.MONTH);
+        int year = c.get(Calendar.YEAR);
+        String date = year + "年" + (month+1) + "月" + day+"日";
         view_Data.setText(date);
         //食物按钮
         bnt_food.setOnClickListener(new View.OnClickListener() {

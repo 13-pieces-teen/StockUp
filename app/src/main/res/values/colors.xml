@@ -23,5 +23,7 @@
     <color name="colorGray">#969696</color>
     <color name="colorQianBlue">#3BB0E6FF</color>
     <color name="colorDeepBlue">#275F82FF</color>
+    <color name="background_gray">#F0F0F0</color>
+    <color name="bottom_gray">#C0C0C0</color>
 
 </resources>

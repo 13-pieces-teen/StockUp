@@ -7,24 +7,24 @@
     tools:context=".MainActivity">
 
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="312dp"
         android:layout_marginTop="569dp"
-        android:layout_marginBottom="32dp"
-        android:src="@drawable/ic_launcher_foreground"
-        android:tint="@color/orange"
-        app:backgroundTint="@android:color/white"
+        android:scaleType="center"
+        android:src="@drawable/btn_add"
+        app:fabCustomSize="65dp"
         app:borderWidth="0dp"
+        app:backgroundTint="@color/background_gray"
         app:elevation="9dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/vpager"
-        app:layout_constraintTop_toTopOf="@+id/vpager" />
+        app:layout_constraintTop_toTopOf="@+id/vpager"
+        app:maxImageSize="72dp" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vpager"
@@ -43,17 +43,16 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
+        android:background="@color/bottom_gray"
+        app:itemIconSize="35dp"
         app:itemIconTint="@color/color_grey_orange"
-        app:itemTextColor="@color/color_grey_orange"
         app:itemTextAppearanceActive="@style/selectText"
         app:itemTextAppearanceInactive="@style/unSelectText"
-        app:itemIconSize="35dp"
+        app:itemTextColor="@color/color_grey_orange"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/bottom_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

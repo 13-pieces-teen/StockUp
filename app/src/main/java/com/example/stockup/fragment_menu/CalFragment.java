@@ -198,8 +198,8 @@ public class CalFragment extends Fragment implements CalendarView.OnYearChangeLi
             objectInfo temp=(objectInfo)supplies_obj.get(i);
             String temps=temp.getOB_after_date();
             String[] tempdate=temps.split("-");
-            map.put(getSchemeCalendar(parseInt(tempdate[0]),parseInt(tempdate[1]), parseInt(tempdate[2]), 0xFFe69138, "物").toString(),
-                    getSchemeCalendar(parseInt(tempdate[0]), parseInt(tempdate[1]), parseInt(tempdate[2]), 0xFF40db25, "物"));
+            map.put(getSchemeCalendar(parseInt(tempdate[0]),parseInt(tempdate[1]), parseInt(tempdate[2]), 0xFF0099FF, "物").toString(),
+                    getSchemeCalendar(parseInt(tempdate[0]), parseInt(tempdate[1]), parseInt(tempdate[2]), 0xFF0099FF, "物"));
 
         }
         for (int i = 0; i < cosmetics_obj.size(); i++) {
