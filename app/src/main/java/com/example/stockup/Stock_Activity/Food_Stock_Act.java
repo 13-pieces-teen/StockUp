@@ -59,7 +59,6 @@ public class Food_Stock_Act extends AppCompatActivity{
 
     private void initlist() {
         food_list=objectDBHelper.getFoodInfo();
-
     }
 
 

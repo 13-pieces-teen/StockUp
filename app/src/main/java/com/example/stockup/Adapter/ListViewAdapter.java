@@ -3,8 +3,6 @@ package com.example.stockup.Adapter;
 import static java.lang.Math.abs;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +15,12 @@ import android.widget.TextView;
 
 import com.example.stockup.R;
 import com.example.stockup.entity.objectInfo;
-import com.example.stockup.entity.wholeObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import ObjectDBHelper.ObjectDBHelper;
 
 public class ListViewAdapter extends ArrayAdapter{
 
@@ -43,12 +39,12 @@ public class ListViewAdapter extends ArrayAdapter{
         View view = LayoutInflater.from(getContext()).inflate(resourceId, null);//实例化一个对象
 
         //获取该布局内的控件
-        ImageView list_Image = (ImageView) view.findViewById(R.id.list_image);
-        TextView list_Name = (TextView) view.findViewById(R.id.list_Name);
-        TextView list_Num= (TextView) view.findViewById(R.id.list_Num);
-        TextView list_produceDate = (TextView) view.findViewById(R.id.list_produceDate);
-        TextView list_afterDate = (TextView) view.findViewById(R.id.list_afterDate);
-        TextView list_between = (TextView) view.findViewById(R.id.list_between);
+        ImageView list_Image = (ImageView) view.findViewById(R.id.recy_image);
+        TextView list_Name = (TextView) view.findViewById(R.id.recy_Name);
+        TextView list_Num= (TextView) view.findViewById(R.id.recy_Num);
+        TextView list_produceDate = (TextView) view.findViewById(R.id.recy_produceDate);
+        TextView list_afterDate = (TextView) view.findViewById(R.id.recy_afterDate);
+        TextView list_between = (TextView) view.findViewById(R.id.recy_between);
         ProgressBar progressBar=(ProgressBar) view.findViewById(R.id.progressBar);
 
 

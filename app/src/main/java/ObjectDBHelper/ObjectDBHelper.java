@@ -253,8 +253,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
     public List<objectInfo> getDurgInfo() {
         List<objectInfo> infos = new ArrayList<>();
         objectInfo obj1 = null;
-        Cursor cursor = db.query(TABLE_DURG, null,
-                null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_DURG, null, null, null, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 obj1 = new objectInfo();
@@ -347,6 +346,127 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         System.out.println("ObjectDBHelper.getAllWhole.size->>>" + infos.size());
         return infos;
     }
+
+    //通过过期日期查询返回list(food)
+    public List<objectInfo> getFoodInfo_after(String after_date) {
+        //"OB_name","OB_type","OB_produce_date","OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"
+        SQLiteDatabase db = getWritableDatabase();
+        List<objectInfo> infos = new ArrayList<>();
+        objectInfo obj1 = null;
+        //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
+        Cursor cursor = db.query(TABLE_FOOD, null,"OB_after_date=?", new String[]{after_date}, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                obj1 = new objectInfo();
+                obj1.setOB_name(cursor.getString(1));
+                obj1.setOB_type(cursor.getString(2));
+                obj1.setOB_produce_date(cursor.getString(3));
+                obj1.setOB_after_date(cursor.getString(4));
+                obj1.setOB_open_date(cursor.getString(5));
+                obj1.setOB_amount(cursor.getInt(6));
+                obj1.setOB_guarantee_day(cursor.getString(7));
+                obj1.setOB_remarks(cursor.getString(8));
+                obj1.setBetweenDays(cursor.getInt(9));
+                obj1.setImageURL(cursor.getString(10));
+                obj1.setRemindDay(cursor.getInt(11));
+                infos.add(obj1);
+            }
+            cursor.close();
+        }
+        System.out.println("ObjectDBHelper.getAllFood.size->>>" + infos.size());
+        return infos;
+    }
+    //通过过期日期查询返回list(drup)
+    public List<objectInfo> getDrupInfo_after(String after_date) {
+        //"OB_name","OB_type","OB_produce_date","OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"
+        SQLiteDatabase db = getWritableDatabase();
+        List<objectInfo> infos = new ArrayList<>();
+        objectInfo obj1 = null;
+        //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
+        //Cursor cursor = db.query(TABLE_DURG, null,"OB_after_date=?", new String[]{after_date}, null, null, null);
+        Cursor cursor = db.query(TABLE_FOOD, null, "OB_after_date" + "=?", new String[]{after_date}, null, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                obj1 = new objectInfo();
+                obj1.setOB_name(cursor.getString(1));
+                obj1.setOB_type(cursor.getString(2));
+                obj1.setOB_produce_date(cursor.getString(3));
+                obj1.setOB_after_date(cursor.getString(4));
+                obj1.setOB_open_date(cursor.getString(5));
+                obj1.setOB_amount(cursor.getInt(6));
+                obj1.setOB_guarantee_day(cursor.getString(7));
+                obj1.setOB_remarks(cursor.getString(8));
+                obj1.setBetweenDays(cursor.getInt(9));
+                obj1.setImageURL(cursor.getString(10));
+                obj1.setRemindDay(cursor.getInt(11));
+                infos.add(obj1);
+            }
+            cursor.close();
+        }
+        System.out.println("ObjectDBHelper.getAllFood.size->>>" + infos.size());
+        return infos;
+    }
+
+    //通过过期日期查询返回list(Cosmetics)
+    public List<objectInfo> getCosmeticsInfo_after(String after_date) {
+        //"OB_name","OB_type","OB_produce_date","OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"
+        SQLiteDatabase db = getWritableDatabase();
+        List<objectInfo> infos = new ArrayList<>();
+        objectInfo obj1 = null;
+        //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
+        Cursor cursor = db.query(TABLE_COSMETICS, null,"OB_after_date=?", new String[]{after_date}, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                obj1 = new objectInfo();
+                obj1.setOB_name(cursor.getString(1));
+                obj1.setOB_type(cursor.getString(2));
+                obj1.setOB_produce_date(cursor.getString(3));
+                obj1.setOB_after_date(cursor.getString(4));
+                obj1.setOB_open_date(cursor.getString(5));
+                obj1.setOB_amount(cursor.getInt(6));
+                obj1.setOB_guarantee_day(cursor.getString(7));
+                obj1.setOB_remarks(cursor.getString(8));
+                obj1.setBetweenDays(cursor.getInt(9));
+                obj1.setImageURL(cursor.getString(10));
+                obj1.setRemindDay(cursor.getInt(11));
+                infos.add(obj1);
+            }
+            cursor.close();
+        }
+        System.out.println("ObjectDBHelper.getAllFood.size->>>" + infos.size());
+        return infos;
+    }
+
+    //通过过期日期查询返回list(Supplies)
+    public List<objectInfo> getSuppliesInfo_after(String after_date) {
+        //"OB_name","OB_type","OB_produce_date","OB_after_date","OB_open_date","OB_amount","OB_guarantee_day","OB_remarks","OB_between"
+        SQLiteDatabase db = getWritableDatabase();
+        List<objectInfo> infos = new ArrayList<>();
+        objectInfo obj1 = null;
+        //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
+        Cursor cursor = db.query(TABLE_FOOD, null,"OB_after_date=?", new String[]{after_date}, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                obj1 = new objectInfo();
+                obj1.setOB_name(cursor.getString(1));
+                obj1.setOB_type(cursor.getString(2));
+                obj1.setOB_produce_date(cursor.getString(3));
+                obj1.setOB_after_date(cursor.getString(4));
+                obj1.setOB_open_date(cursor.getString(5));
+                obj1.setOB_amount(cursor.getInt(6));
+                obj1.setOB_guarantee_day(cursor.getString(7));
+                obj1.setOB_remarks(cursor.getString(8));
+                obj1.setBetweenDays(cursor.getInt(9));
+                obj1.setImageURL(cursor.getString(10));
+                obj1.setRemindDay(cursor.getInt(11));
+                infos.add(obj1);
+            }
+            cursor.close();
+        }
+        System.out.println("ObjectDBHelper.getAllFood.size->>>" + infos.size());
+        return infos;
+    }
+
 
 
     //通过物品名称在总表查询图片uri

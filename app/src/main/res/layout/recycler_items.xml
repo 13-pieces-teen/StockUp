@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/re_items"
+        android:layout_width="0dp"
+
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/recy_image"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <LinearLayout
+            android:layout_width="294dp"
+            android:layout_height="88dp"
+            android:background="@color/colorQianBlue"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/recy_image"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="242dp"
+                android:layout_height="74dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:id="@+id/recy_Name"
+                    android:layout_width="102dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="4dp"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_toEndOf="@+id/recy_Name"
+                    android:gravity="center"
+                    android:text="数量:"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/recy_Num"
+                    android:layout_width="70dp"
+                    android:layout_height="32dp"
+                    android:layout_toEndOf="@+id/textView1"
+                    android:background="@color/colorDeepBlue"
+                    android:gravity="center"
+                    android:text="个数"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/recy_produceDate"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_below="@+id/recy_Name"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textSize="20dp" />
+
+
+                <TextView
+                    android:id="@+id/recy_afterDate"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_toEndOf="@+id/recy_produceDate"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/recy_between"
+                android:layout_width="34dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="#41FFEB3B"
+                android:gravity="center"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
