@@ -135,6 +135,9 @@ public class CalFragment extends Fragment implements CalendarView.OnYearChangeLi
 
     private void inilist() {
         Deadline_obj=objectDBHelper.getFoodInfo_after(date);
+        Deadline_obj.addAll(objectDBHelper.getCosmeticsInfo_after(date));
+        Deadline_obj.addAll(objectDBHelper.getDrupInfo_after(date));
+        Deadline_obj.addAll(objectDBHelper.getSuppliesInfo_after(date));
     }
 
     private void intidate() {

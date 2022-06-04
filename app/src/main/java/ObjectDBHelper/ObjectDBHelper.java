@@ -384,7 +384,7 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
         objectInfo obj1 = null;
         //select null1 from tableName where null2=null3 group by null4 having null5 order by null6
         //Cursor cursor = db.query(TABLE_DURG, null,"OB_after_date=?", new String[]{after_date}, null, null, null);
-        Cursor cursor = db.query(TABLE_FOOD, null, "OB_after_date" + "=?", new String[]{after_date}, null, null, null, null);
+        Cursor cursor = db.query(TABLE_DURG, null, "OB_after_date" + "=?", new String[]{after_date}, null, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 obj1 = new objectInfo();
