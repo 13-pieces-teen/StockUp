@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import java.util.List;
 import ObjectDBHelper.ObjectDBHelper;
 
 public class Food_Stock_Act extends AppCompatActivity{
+    private TextView reminder_text;
     private ListView listView;//食物列表数组
     private ObjectDBHelper objectDBHelper;
     private List<objectInfo> food_list = new ArrayList<objectInfo>();
@@ -34,6 +36,7 @@ public class Food_Stock_Act extends AppCompatActivity{
         objectDBHelper = new ObjectDBHelper(this);//很重要，之前忘了实例化，会导致空指针
 
         listView = findViewById(R.id.listView);
+        reminder_text=findViewById(R.id.reminder_text);
         //数据库查询并添加到数组
         initlist();
         //给listView设置ArrayAdapter，绑定数据
@@ -55,10 +58,15 @@ public class Food_Stock_Act extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
     }
 
     private void initlist() {
         food_list=objectDBHelper.getFoodInfo();
+        //判断数组为空
+        if(food_list.size()==0){
+            reminder_text.setText("当前为空，快去添加吧");
+        }
     }
 
 

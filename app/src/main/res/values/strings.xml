@@ -15,5 +15,6 @@
     <string name="settings">settings</string>
     <string name="calendar">calendar</string>
     <string name="数量">数量</string>
+    <string name="reminder">当前为空，快去添加吧</string>
 
 </resources>

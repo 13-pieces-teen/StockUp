@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import java.util.List;
 import ObjectDBHelper.ObjectDBHelper;
 
 public class Supplies_Stock_Act extends AppCompatActivity {
+    private TextView reminder_text;
     private ListView listView;
     private ObjectDBHelper objectDBHelper;
     //列表数组
@@ -34,6 +36,7 @@ public class Supplies_Stock_Act extends AppCompatActivity {
         setContentView(R.layout.com_activity_stock);
 
         objectDBHelper = new ObjectDBHelper(this);//很重要，之前忘了实例化，会导致空指针
+        reminder_text=findViewById(R.id.reminder_text);
         listView = findViewById(R.id.listView);
         //数据库查询并添加到数组
         initlist();
@@ -60,6 +63,10 @@ public class Supplies_Stock_Act extends AppCompatActivity {
 
     private void initlist() {
         supplies_list=objectDBHelper.getSuppliesInfo();
+        //判断数组为空
+        if(supplies_list.size()==0){
+            reminder_text.setText("当前为空，快去添加吧");
+        }
     }
 
 
