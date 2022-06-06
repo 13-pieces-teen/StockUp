@@ -5,12 +5,11 @@
       <map>
         <entry key="..\:/Android/StockUp/app/src/main/res/drawable/ic_home_background.xml" value="0.2025" />
         <entry key="..\:/Android/StockUp/app/src/main/res/drawable/ic_set_background.xml" value="0.2025" />
-        <entry key="..\:/Android/StockUp/app/src/main/res/layout/activity_add_stock.xml" value="0.4499514091350826" />
-        <entry key="..\:/Android/StockUp/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Android/StockUp/app/src/main/res/layout/com_activity_stock.xml" value="0.264" />
-        <entry key="..\:/Android/StockUp/app/src/main/res/layout/fragment_cal.xml" value="0.2" />
-        <entry key="..\:/Android/StockUp/app/src/main/res/layout/fragment_home.xml" value="0.264" />
-        <entry key="..\:/Android/StockUp/app/src/main/res/layout/fragment_set.xml" value="0.24114583333333334" />
+        <entry key="..\:/Android/StockUp/app/src/main/res/layout/activity_add_stock.xml" value="0.536" />
+        <entry key="..\:/Android/StockUp/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Android/StockUp/app/src/main/res/layout/com_activity_stock.xml" value="0.48736842105263156" />
+        <entry key="..\:/Android/StockUp/app/src/main/res/layout/fragment_cal.xml" value="0.1" />
+        <entry key="..\:/Android/StockUp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Android/StockUp/app/src/main/res/layout/listview_items.xml" value="0.34312210200927357" />
         <entry key="..\:/Android/StockUp/app/src/main/res/layout/recycler_items.xml" value="0.6" />
         <entry key="..\:/Android/StockUp/app/src/main/res/menu/bottom_menu.xml" value="0.1" />
@@ -18,10 +17,15 @@
         <entry key="..\:/Android/StockUp/app/src/main/res/xml/bottombar_sample_activity.xml" value="0.264" />
         <entry key="..\:/StockUp/app/src/main/res/drawable/biankuang.xml" value="0.22" />
         <entry key="..\:/StockUp/app/src/main/res/drawable/button.xml" value="0.184" />
+        <entry key="..\:/StockUp/app/src/main/res/drawable/radiobutton_background_unchecked.xml" value="0.2205" />
+        <entry key="..\:/StockUp/app/src/main/res/layout/activity_add_and_decrease.xml" value="0.3605072463768116" />
         <entry key="..\:/StockUp/app/src/main/res/layout/activity_add_stock.xml" value="0.358695652173913" />
         <entry key="..\:/StockUp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/StockUp/app/src/main/res/layout/activity_never.xml" value="0.3605072463768116" />
+        <entry key="..\:/StockUp/app/src/main/res/layout/activity_splash.xml" value="0.3546195652173913" />
         <entry key="..\:/StockUp/app/src/main/res/layout/activity_stock_details.xml" value="0.358695652173913" />
+        <entry key="..\:/StockUp/app/src/main/res/layout/activity_tips_view.xml" value="0.3605072463768116" />
+        <entry key="..\:/StockUp/app/src/main/res/layout/activity_tipsview.xml" value="0.3605072463768116" />
         <entry key="..\:/StockUp/app/src/main/res/layout/activity_update_stock.xml" value="0.358695652173913" />
         <entry key="..\:/StockUp/app/src/main/res/layout/add_stock.xml" value="0.358695652173913" />
         <entry key="..\:/StockUp/app/src/main/res/layout/com_activity_stock.xml" value="0.358695652173913" />
@@ -30,6 +34,8 @@
         <entry key="..\:/StockUp/app/src/main/res/layout/fragment_set.xml" value="0.3605072463768116" />
         <entry key="..\:/StockUp/app/src/main/res/layout/listview_items.xml" value="0.358695652173913" />
         <entry key="..\:/StockUp/app/src/main/res/layout/listview_show.xml" value="0.3605072463768116" />
+        <entry key="..\:/StockUp/app/src/main/res/layout/recycler_items.xml" value="0.3546195652173913" />
+        <entry key="..\:/StockUp/app/src/main/res/layout/tipsview.xml" value="0.3605072463768116" />
       </map>
     </option>
   </component>

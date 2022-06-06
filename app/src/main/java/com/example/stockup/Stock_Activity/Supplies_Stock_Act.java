@@ -47,11 +47,14 @@ public class Supplies_Stock_Act extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(Supplies_Stock_Act.this, "你点击了第" + i + "行", Toast.LENGTH_SHORT).show();
                 index = i+1;
+                Toast.makeText(Supplies_Stock_Act.this, "你点击了第" + index + "行", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();//用Bundle传递参数给下一个页面
                 bundle.putInt("ID", index);
                 bundle.putString("objType", "supplies");
+                String OB_name = supplies_list.get(i).getOB_name();
+                bundle.putString("OBname",OB_name);
+
                 Intent intent = new Intent();
                 intent.putExtras(bundle);
                 intent.setClass(Supplies_Stock_Act.this, update_stock.class);//this前面为当前activty名称，class前面为要跳转到得activity名称

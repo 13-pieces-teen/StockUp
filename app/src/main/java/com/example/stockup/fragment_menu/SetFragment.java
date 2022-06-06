@@ -33,7 +33,6 @@ public class SetFragment extends Fragment {
     public static SetFragment newInstance(String param1, String param2) {
         SetFragment fragment = new SetFragment();
 
-
         return fragment;
     }
 

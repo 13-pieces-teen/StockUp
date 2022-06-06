@@ -410,9 +410,14 @@ public class add_stock extends AppCompatActivity {
 
                 if (rowId != -1) {
                     Toast.makeText(add_stock.this, "添加成功！！！", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setClass(add_stock.this, MainActivity.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
+                    startActivity(intent);
+
                 } else {
                     Toast.makeText(add_stock.this, "添加失败！！！", Toast.LENGTH_SHORT).show();
                 }
+
 
             }
         });

@@ -49,6 +49,7 @@ public class update_stock extends AppCompatActivity {
     private ObjectDBHelper DBHelper;
     private int ID;
     private String objType;
+    private String OBname;
     private int betweenDays;
     private String text;
     private objectInfo obj1 = new objectInfo();
@@ -62,6 +63,7 @@ public class update_stock extends AppCompatActivity {
         Bundle bundle=getIntent().getExtras();
         ID = bundle.getInt("ID");
         objType = bundle.getString("objType");
+        OBname = bundle.getString("OBname");
 
         initView();
         getAllInfoSet();
@@ -107,7 +109,7 @@ public class update_stock extends AppCompatActivity {
         btn_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                delFromID();
+                delFromName();
                 Intent intent = new Intent();
                 intent.setClass(update_stock.this, MainActivity.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
                 startActivity(intent);
@@ -243,6 +245,35 @@ public class update_stock extends AppCompatActivity {
                 break;
         }
     }
+
+    private void delFromName()
+    {
+        switch (objType){
+            case "food":
+                DBHelper.deleteFoodWithName(OBname);
+                text = objType + "编号为" + ID + "被删除";
+                Toast.makeText(update_stock.this,text,Toast.LENGTH_SHORT).show();
+                break;
+            case "durg":
+                DBHelper.deleteDurgWithName(OBname);
+                text = objType + "编号为" + ID + "被删除";
+                Toast.makeText(update_stock.this,text,Toast.LENGTH_SHORT).show();
+                break;
+            case "cosmetics":
+                DBHelper.deleteComsWithName(OBname);
+                text = objType + "编号为" + ID + "被删除";
+                Toast.makeText(update_stock.this,text,Toast.LENGTH_SHORT).show();
+                break;
+            case "supplies":
+                DBHelper.deleteSupWithName(OBname);
+                text = objType + "编号为" + ID + "被删除";
+                Toast.makeText(update_stock.this,text,Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+    }
+
 
     private objectInfo updateInfo()
     {

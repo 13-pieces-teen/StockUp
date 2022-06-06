@@ -132,6 +132,25 @@
             android:layout_marginTop="56dp"
             android:contentDescription="@string/化妆品"
             app:srcCompat="@drawable/cosmetics" />
+
+<!--        <com.example.stockup.TipsView-->
+<!--            android:id="@+id/tip_2"-->
+<!--            android:layout_width="164dp"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_marginEnd="114dp"-->
+<!--            android:layout_marginBottom="94dp" />-->
+
+<!--        <com.example.stockup.TipsView-->
+<!--            android:id="@+id/tip_1"-->
+<!--            android:layout_width="168dp"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_marginEnd="128dp"-->
+<!--            android:layout_marginBottom="558dp" />-->
+
     </RelativeLayout>
 
 

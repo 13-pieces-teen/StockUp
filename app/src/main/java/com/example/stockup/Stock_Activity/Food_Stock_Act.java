@@ -51,6 +51,9 @@ public class Food_Stock_Act extends AppCompatActivity{
                 Bundle bundle = new Bundle();//用Bundle传递参数给下一个页面
                 bundle.putInt("ID", index);
                 bundle.putString("objType", "food");
+                String OB_name = food_list.get(i).getOB_name();
+                bundle.putString("OBname",OB_name);
+
                 Intent intent = new Intent();
                 intent.putExtras(bundle);
                 intent.setClass(Food_Stock_Act.this, update_stock.class);//this前面为当前activty名称，class前面为要跳转到得activity名称

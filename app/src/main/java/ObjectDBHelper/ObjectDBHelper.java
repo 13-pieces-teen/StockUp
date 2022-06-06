@@ -580,7 +580,33 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
     }
 
 
-    //删除某食品
+
+    //删除通过物品名称
+    public void deleteFoodWithName(String name) {
+        db.delete(TABLE_FOOD, "OB_NAME" + "=?", new String[]{name});
+        System.out.println("食品删除成功！！！");
+    }
+
+    //删除通过物品名称
+    public void deleteDurgWithName(String name) {
+        db.delete(TABLE_DURG, "OB_NAME" + "=?", new String[]{name});
+        System.out.println("药品删除成功！！！");
+    }
+
+    //删除通过物品名称
+    public void deleteComsWithName(String name) {
+        db.delete(TABLE_COSMETICS, "OB_NAME" + "=?", new String[]{name});
+        System.out.println("化妆品删除成功！！！");
+    }
+
+    //删除通过物品名称
+    public void deleteSupWithName(String name) {
+        db.delete(TABLE_SUPPLIES, "OB_NAME" + "=?", new String[]{name});
+        System.out.println("物资删除成功！！！");
+    }
+
+
+    //删除某食品(ID)
     public void deleteFoodWithID(int ID) {
         db.delete(TABLE_FOOD, "id" + "=?", new String[]{String.valueOf(ID)});
         System.out.println("食品删除成功！！！");
@@ -588,19 +614,19 @@ public class ObjectDBHelper extends SQLiteOpenHelper {
 
     //删除某药品
     public void deleteDurgWithID(int ID) {
-        db.delete(TABLE_FOOD, "id" + "=?", new String[]{String.valueOf(ID)});
+            db.delete(TABLE_DURG, "id" + "=?", new String[]{String.valueOf(ID)});
         System.out.println("药品删除成功！！！");
     }
 
     //删除某化妆品
     public void deleteComeWithID(int ID) {
-        db.delete(TABLE_FOOD, "id" + "=?", new String[]{String.valueOf(ID)});
+        db.delete(TABLE_COSMETICS, "id" + "=?", new String[]{String.valueOf(ID)});
         System.out.println("化妆品删除成功！！！");
     }
 
     //删除某物资
     public void deleteSuppliesWithID(int ID) {
-        db.delete(TABLE_FOOD, "id" + "=?", new String[]{String.valueOf(ID)});
+        db.delete(TABLE_SUPPLIES, "id" + "=?", new String[]{String.valueOf(ID)});
         System.out.println("物资删除成功！！！");
     }
 

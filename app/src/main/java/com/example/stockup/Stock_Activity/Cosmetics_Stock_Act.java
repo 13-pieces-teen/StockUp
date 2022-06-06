@@ -40,6 +40,8 @@ public class Cosmetics_Stock_Act extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         //数据库查询并添加到数组
         initlist();
+
+
         //给listView设置ArrayAdapter，绑定数据
         ListViewAdapter listadapter=new ListViewAdapter(Cosmetics_Stock_Act.this,R.layout.listview_items,cosmetics_list);
         listView.setAdapter(listadapter);
@@ -47,11 +49,14 @@ public class Cosmetics_Stock_Act extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(Cosmetics_Stock_Act.this, "你点击了第" + i + "行", Toast.LENGTH_SHORT).show();
-                index = i+1;
+                index = i + 1;
+                Toast.makeText(Cosmetics_Stock_Act.this, "你点击了第" + index + "行", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();//用Bundle传递参数给下一个页面
                 bundle.putInt("ID", index);
                 bundle.putString("objType", "cosmetics");
+
+                String OB_name = cosmetics_list.get(i).getOB_name();
+                bundle.putString("OBname",OB_name);
                 Intent intent = new Intent();
                 intent.putExtras(bundle);
                 intent.setClass(Cosmetics_Stock_Act.this, update_stock.class);//this前面为当前activty名称，class前面为要跳转到得activity名称

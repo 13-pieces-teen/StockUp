@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private SetFragment setFragment;
     private HomeFragment homeFragment;
     private FloatingActionButton fab_add;
+    private TipsView tip_1;
+    private TipsView tip_2;
     List<Fragment> fragmentList;
 
 
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         intData();
         adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         vp.setAdapter(adapter);
+
+
 
         //添加按钮绑定
         fab_add.setOnClickListener(new View.OnClickListener() {

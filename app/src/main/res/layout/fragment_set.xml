@@ -26,7 +26,7 @@
                 android:background="@color/white"
                 android:gravity="center"
                 android:text="用户设置"
-                android:textColor="@color/black"
+                android:textColor="#B0000000"
                 android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
