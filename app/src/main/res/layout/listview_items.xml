@@ -50,6 +50,7 @@
                 android:layout_marginStart="4dp"
                 android:gravity="center"
                 android:text="TextView"
+                android:textColor="@color/tee_green"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -62,8 +63,9 @@
                 android:layout_toEndOf="@+id/recy_Name"
                 android:gravity="center"
                 android:text="数量:"
-                android:textStyle="bold"
-                android:textSize="20dp" />
+                android:textColor="@color/tee_green"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/recy_Num"
@@ -73,6 +75,7 @@
                 android:background="@color/colorDeepBlue"
                 android:gravity="center"
                 android:text="个数"
+                android:textColor="@color/tee_green"
                 android:textSize="18dp" />
 
             <TextView
@@ -83,6 +86,7 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="TextView"
+                android:textColor="@color/tee_green"
                 android:textSize="20dp" />
 
 
@@ -96,6 +100,7 @@
                 android:layout_toEndOf="@+id/recy_produceDate"
                 android:gravity="center"
                 android:text="TextView"
+                android:textColor="@color/tee_green"
                 android:textSize="20dp" />
 
             <ProgressBar
@@ -119,6 +124,7 @@
                 android:layout_gravity="center"
                 android:background="#41FFEB3B"
                 android:gravity="center"
+                android:textColor="@color/tee_green"
                 android:textSize="16dp" />
 
         </LinearLayout>

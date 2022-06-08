@@ -74,9 +74,7 @@ public class update_stock extends AppCompatActivity {
         btn_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(update_stock.this, MainActivity.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
-                startActivity(intent);
+                finish();
             }
         });
 

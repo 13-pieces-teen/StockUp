@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ import ObjectDBHelper.ObjectDBHelper;
 public class Food_Stock_Act extends AppCompatActivity{
     private TextView reminder_text;
     private ListView listView;//食物列表数组
+    private Button btn_back;
+    private ListViewAdapter listadapter;
     private ObjectDBHelper objectDBHelper;
     private List<objectInfo> food_list = new ArrayList<objectInfo>();
     private int index;//行数索引，也是该食品在数据库里的id
@@ -37,12 +40,7 @@ public class Food_Stock_Act extends AppCompatActivity{
 
         listView = findViewById(R.id.listView);
         reminder_text=findViewById(R.id.reminder_text);
-        //数据库查询并添加到数组
-        initlist();
-        //给listView设置ArrayAdapter，绑定数据
-        ListViewAdapter listadapter=new ListViewAdapter(Food_Stock_Act.this,R.layout.listview_items,food_list);
-        listView.setAdapter(listadapter);
-        //点击监听
+        btn_back=findViewById(R.id.btn_Toback);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -61,7 +59,23 @@ public class Food_Stock_Act extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //数据库查询并添加到数组
+        initlist();
+        listadapter=new ListViewAdapter(Food_Stock_Act.this,R.layout.listview_items,food_list);
+        listView.setAdapter(listadapter);
     }
 
     private void initlist() {

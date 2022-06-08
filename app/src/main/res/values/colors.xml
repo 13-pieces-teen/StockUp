@@ -25,5 +25,7 @@
     <color name="colorDeepBlue">#275F82FF</color>
     <color name="background_gray">#F0F0F0</color>
     <color name="bottom_gray">#C0C0C0</color>
+    <color name="vi">#00000000</color>
+    <color name="tee_green">#637f02</color>
 
 </resources>

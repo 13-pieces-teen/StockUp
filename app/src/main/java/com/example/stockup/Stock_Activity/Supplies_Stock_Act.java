@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import ObjectDBHelper.ObjectDBHelper;
 public class Supplies_Stock_Act extends AppCompatActivity {
     private TextView reminder_text;
     private ListView listView;
+    private Button btn_back;
     private ObjectDBHelper objectDBHelper;
     //列表数组
     private List<objectInfo> supplies_list = new ArrayList<objectInfo>();
@@ -38,11 +40,8 @@ public class Supplies_Stock_Act extends AppCompatActivity {
         objectDBHelper = new ObjectDBHelper(this);//很重要，之前忘了实例化，会导致空指针
         reminder_text=findViewById(R.id.reminder_text);
         listView = findViewById(R.id.listView);
+        btn_back=findViewById(R.id.btn_Toback);
         //数据库查询并添加到数组
-        initlist();
-        //给listView设置ArrayAdapter，绑定数据
-        ListViewAdapter listadapter=new ListViewAdapter(Supplies_Stock_Act.this,R.layout.listview_items,supplies_list);
-        listView.setAdapter(listadapter);
         //点击监听
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -62,6 +61,21 @@ public class Supplies_Stock_Act extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initlist();
+        //给listView设置ArrayAdapter，绑定数据
+        ListViewAdapter listadapter=new ListViewAdapter(Supplies_Stock_Act.this,R.layout.listview_items,supplies_list);
+        listView.setAdapter(listadapter);
     }
 
     private void initlist() {

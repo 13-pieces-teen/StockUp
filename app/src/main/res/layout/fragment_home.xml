@@ -10,7 +10,7 @@
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#F0F0F0"
+        android:background="@color/background_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -59,8 +59,8 @@
 
         <TextView
             android:id="@+id/Data_view"
-            android:layout_width="wrap_content"
-            android:layout_height="63dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -69,7 +69,9 @@
             android:layout_marginTop="57dp"
             android:layout_marginEnd="69dp"
             android:layout_marginBottom="610dp"
+            android:background="@color/background_gray"
             android:gravity="center"
+            android:textColor="@color/black"
             android:textSize="30sp" />
 
         <ImageView
@@ -133,23 +135,23 @@
             android:contentDescription="@string/化妆品"
             app:srcCompat="@drawable/cosmetics" />
 
-<!--        <com.example.stockup.TipsView-->
-<!--            android:id="@+id/tip_2"-->
-<!--            android:layout_width="164dp"-->
-<!--            android:layout_height="55dp"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_marginEnd="114dp"-->
-<!--            android:layout_marginBottom="94dp" />-->
+        <!--        <com.example.stockup.TipsView-->
+        <!--            android:id="@+id/tip_2"-->
+        <!--            android:layout_width="164dp"-->
+        <!--            android:layout_height="55dp"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_alignParentBottom="true"-->
+        <!--            android:layout_marginEnd="114dp"-->
+        <!--            android:layout_marginBottom="94dp" />-->
 
-<!--        <com.example.stockup.TipsView-->
-<!--            android:id="@+id/tip_1"-->
-<!--            android:layout_width="168dp"-->
-<!--            android:layout_height="55dp"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_marginEnd="128dp"-->
-<!--            android:layout_marginBottom="558dp" />-->
+        <!--        <com.example.stockup.TipsView-->
+        <!--            android:id="@+id/tip_1"-->
+        <!--            android:layout_width="168dp"-->
+        <!--            android:layout_height="55dp"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_alignParentBottom="true"-->
+        <!--            android:layout_marginEnd="128dp"-->
+        <!--            android:layout_marginBottom="558dp" />-->
 
     </RelativeLayout>
 
